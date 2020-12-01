@@ -1,3 +1,3 @@
 # WORK IN PROGRESS
 
-(Unused, not part of Bazelcon 2019 session.)
+(Not yet developed - for now, we look at existing off-the-shelf Bazel rules.)

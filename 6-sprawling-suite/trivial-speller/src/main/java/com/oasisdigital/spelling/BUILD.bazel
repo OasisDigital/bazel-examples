@@ -1,0 +1,26 @@
+load("@rules_java//java:defs.bzl", "java_binary", "java_library")
+
+package(default_visibility = ["//visibility:public"])
+
+# The java_binary rule, like many others, has multiple outputs. We'll
+# see that in action shortly.
+
+java_binary(
+    name = "spelling",
+    main_class = "com.oasisdigital.spelling.SpellingServer",
+    runtime_deps = [":spelling-lib"],
+)
+
+java_library(
+    name = "spelling-lib",
+    srcs = [
+        "SpellingServer.java",
+    ],
+    deps = [
+        "//apidef:api_proto_java",
+        "//apidef:api_proto_java_lib",
+        "@io_grpc_grpc_java//core",
+        "@io_grpc_grpc_java//netty",
+        "@io_grpc_grpc_java//stub",
+    ],
+)

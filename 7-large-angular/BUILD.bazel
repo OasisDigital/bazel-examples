@@ -1,0 +1,34 @@
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files(["favicon.ico"])
+
+# ts_library uses the `//:tsconfig.json` target
+# by default. This alias allows omitting explicit tsconfig
+# attribute.
+alias(
+    name = "tsconfig.json",
+    actual = "//src:tsconfig.json",
+)
+
+# Just a dummy test so that we have a test target for //... on certain bazelci platforms with bazel_integration_test
+sh_test(
+    name = "dummy_test",
+    srcs = ["dummy_test.sh"],
+)
+
+# Java rules need a top level target
+
+alias(
+    name = "jdk",
+    actual = select(
+        {
+            "@bazel_tools//src/conditions:darwin": "@jdk11_macos//:jdk",
+            "@bazel_tools//src/conditions:darwin_x86_64": "@jdk11_macos//:jdk",
+            "@bazel_tools//src/conditions:linux_x86_64": "@jdk11_linux//:jdk",
+            "@bazel_tools//src/conditions:windows": "@jdk11_windows//:jdk",
+        },
+        no_match_error = "Could not find a JDK for host execution environment, please explicitly" +
+                         " provide one using `--host_javabase.`",
+    ),
+    visibility = ["//visibility:public"],
+)

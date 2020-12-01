@@ -19,44 +19,44 @@ rules_java_dependencies()
 
 rules_java_toolchains()
 
-# Download JDKs
+# Bazel-managed JDK:
 
 http_archive(
-    name = "jdk8_linux",
+    name = "jdk11_linux",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "568e7578f1b20b1e62a8ed2c374bad4eb0e75d221323ccfa6ba8d7bc56cf33cf",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-linux_x64",
+    sha256 = "6c79bfe8bb06c82b72ef2f293a14becef56b3078d298dc75fda4225cbb2d3d0c",
+    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-linux_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-linux_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-linux_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk8_macos",
+    name = "jdk11_macos",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "64538f3eed34a298cc48168e89326fd323a55d801a3e6b2c3cc948effe124250",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-macosx_x64",
+    sha256 = "11701b54e62d5cde81a4fa0211776448e38a368c1cfc4ad73bb3bbd628107563",
+    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-macosx_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-macosx_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk8_windows",
+    name = "jdk11_windows",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "f5367fc29485252e91d3d1d28b069277b7133dfa2e104fc181af4373267d3a82",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-win_x64",
+    sha256 = "b619df7a6f625095ee4adb3add44839b0b1af2adc09a16c7312ca96bb2b61ec9",
+    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-win_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-win_x64.zip",
+        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip",
     ],
 )
 
 # Official Bazel tools to get Maven repo dependencies; there are other
 # unofficial tools also.
 
-RULES_JVM_EXTERNAL_TAG = "3.0"
+RULES_JVM_EXTERNAL_TAG = "3.3"
 
-RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
+RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab"
 
 http_archive(
     name = "rules_jvm_external",
@@ -69,7 +69,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "com.sparkjava:spark-core:2.8.0",
+        "com.sparkjava:spark-core:2.9.3",
     ],
     maven_install_json = "//:maven_install.json",
     repositories = [
@@ -89,8 +89,8 @@ pinned_maven_install()
 
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "a54b2511d6dae42c1f7cdaeb08144ee2808193a088004fc3b464a04583d5aa2e",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.42.3/rules_nodejs-0.42.3.tar.gz"],
+    sha256 = "452bef42c4b2fbe0f509a2699ffeb3ae2c914087736b16314dbd356f3641d7e5",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.3.0/rules_nodejs-2.3.0.tar.gz"],
 )
 
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
@@ -103,16 +103,12 @@ node_repositories(
 yarn_install(
     name = "npm",
     package_json = "//:package.json",
-    symlink_node_modules = True,  # Worthy of discussion!
+    symlink_node_modules = True,  # use the managed_directories
     yarn_lock = "//:yarn.lock",
 )
 
-load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
-
-install_bazel_dependencies()
-
 # Load npm_bazel_karma dependencies
-load("@npm_bazel_karma//:package.bzl", "npm_bazel_karma_dependencies")
+load("@npm//@bazel/karma:package.bzl", "npm_bazel_karma_dependencies")
 
 npm_bazel_karma_dependencies()
 
@@ -140,8 +136,11 @@ http_archive(
 
 http_archive(
     name = "bazel_skylib",
-    sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
-    url = "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+    urls = [
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+    ],
 )
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")

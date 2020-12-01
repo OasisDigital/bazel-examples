@@ -8,10 +8,8 @@
     "bazelbuild.vscode-bazel",
     "esbenp.prettier-vscode",
     "formulahendry.auto-rename-tag",
-    "mhutchie.git-graph",
     "msjsdiag.debugger-for-chrome",
     "stkb.rewrap",
-    "ms-vscode.go",
     "ms-vscode.vscode-typescript-tslint-plugin"
   ]
 }

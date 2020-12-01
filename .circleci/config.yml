@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  win: circleci/windows@1.0.0
+  win: circleci/windows@2.4.0
 
 jobs:
   bazel_linux:
@@ -14,33 +14,57 @@ jobs:
       - run:
           command: |
             cd 1-up-and-running
+            # 3.7.0 not yet published, https://console.cloud.google.com/gcr/images/cloud-marketplace-containers/GLOBAL/google/bazel?gcrImageListsize=30
+            echo 3.5.0 >.bazelversion
             bazel version
             ./exercise.sh
 
       - run:
           command: |
             cd 2-java-tooling
+            echo 3.5.0 >.bazelversion
             ./exercise.sh
 
       - run:
           command: |
             cd 3-java-dependencies
+            echo 3.5.0 >.bazelversion
             ./exercise.sh
 
       - run:
           command: |
             cd 4-multi-language
+            echo 3.5.0 >.bazelversion
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 5-full-stack
+            echo 3.5.0 >.bazelversion
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 6-sprawling-suite
+            echo 3.5.0 >.bazelversion
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 7-large-angular
+            echo 3.5.0 >.bazelversion
             ./exercise.sh
 
   bazel_windows:
     executor:
-      name: win/vs2019
+      name: win/default
       shell: bash.exe
+      size: large
     steps:
       - checkout
       - run:
           command: |
-            curl -sSL https://github.com/bazelbuild/bazel/releases/download/1.2.1/bazel-1.2.1-windows-x86_64.exe >/c/Go/bin/bazel
+            curl -sSL https://github.com/bazelbuild/bazel/releases/download/3.7.0/bazel-3.7.0-windows-x86_64.exe >/c/Go/bin/bazel
       - run:
           command: |
             cd 1-up-and-running
@@ -59,6 +83,21 @@ jobs:
       - run:
           command: |
             cd 4-multi-language
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 5-full-stack
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 6-sprawling-suite
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 7-large-angular
             ./exercise.sh
 
 workflows:

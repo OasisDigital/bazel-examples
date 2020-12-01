@@ -1,0 +1,16 @@
+load("@rules_java//java:defs.bzl", "java_binary")
+load("@com_github_atlassian_bazel_tools//multirun:def.bzl", "command")
+
+package(default_visibility = ["//visibility:public"])
+
+java_binary(
+  name = "speller004",
+  main_class = "com.oasisdigital.spelling.SpellingServer",
+  runtime_deps = ["//speller004/src/main/java/com/oasisdigital/spelling:spelling-lib"],
+)
+
+command(
+  name = "command",
+  command = ":speller004",
+)
+

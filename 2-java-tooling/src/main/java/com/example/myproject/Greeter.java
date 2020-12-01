@@ -13,6 +13,8 @@ public class Greeter {
   static PrintStream out = System.out;
 
   public void greet(String subject) throws Exception {
+    // Bazel Java support includes https://errorprone.info/ automatically; try this:
+    // new Exception();
     String greeting = "Hello";
     out.println(greeting + " " + subject);
   }

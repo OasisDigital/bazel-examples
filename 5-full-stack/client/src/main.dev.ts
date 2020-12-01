@@ -1,5 +1,3 @@
-console.log('HELLO');
-
 import { platformBrowser } from '@angular/platform-browser';
 import { AppModuleNgFactory } from './app/app.module.ngfactory';
 

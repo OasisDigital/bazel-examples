@@ -1,0 +1,31 @@
+{
+  "name": "sprawling-suite",
+  "version": "0.0.0",
+  "scripts": {
+    "generate": "ts-node generator/generate.ts"
+  },
+  "private": true,
+  "dependencies": {
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "rxjs": "^6.4.0",
+    "sse-channel": "^2.0.2",
+    "systemjs": "6.1.2",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@bazel/hide-bazel-files": "1.7.0",
+    "@bazel/typescript": "2.3.0",
+    "@types/compression": "1.0.1",
+    "@types/express": "^4.17.2",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.8",
+    "@types/node": "~8.9.4",
+    "history-server": "^1.3.1",
+    "mkdirp": "^1.0.4",
+    "ts-node": "~8.5.4",
+    "tslint": "~5.10.0",
+    "typescript": "~3.5.3"
+  }
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package spelling;
+
+// Configure Java code gen
+
+option java_multiple_files = true;
+option java_package = "com.oasisdigital.spelling.api";
+option java_outer_classname = "ApiProto";
+
+// Configure Go code gen
+
+option go_package = "spelling/api";
+
+service SpellChecker {
+  rpc Check(Candidate) returns (Result) {}
+}
+
+message Candidate {
+  string word = 1;
+}
+
+message Result {
+  bool ok = 1;
+}

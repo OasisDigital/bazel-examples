@@ -1,4 +1,4 @@
-# Bazelcon 2019 "Bazel Boot Camp" case studies / examples
+# Oasis Digital Bazel case studies / examples
 
 ## This repository is arranged in a very unusual way
 

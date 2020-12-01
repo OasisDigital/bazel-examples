@@ -3,8 +3,6 @@
 
 build --javabase=//:jdk
 build --host_javabase=//:jdk
-build --java_toolchain=@bazel_tools//tools/jdk:toolchain_hostjdk8
-build --host_java_toolchain=@bazel_tools//tools/jdk:toolchain_hostjdk8
 
 # An even simpler example would not configure any extra caching; but
 # to speed up the CI used for these examples, it’s worth this extra bit
@@ -23,10 +21,8 @@ build --disk_cache=~/.cache/bazel-disk
 build --strategy=TypeScriptCompile=worker
 build --strategy=AngularTemplateCompile=worker
 
-build --incompatible_bzl_disallow_load_after_statement=false
-
 test --test_output=errors
 
-# Turn on managed directories feature in Bazel
-# This allows us to avoid installing a second copy of node_modules
-common --experimental_allow_incremental_repository_updates
+# Use the Angular Ivy compiler
+# See https://github.com/angular/angular/blob/master/docs/BAZEL.md#various-flags-used-for-tests
+build --define=angular_ivy_enabled=True
