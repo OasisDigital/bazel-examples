@@ -22,4 +22,6 @@ build --disk_cache=~/.cache/bazel-disk
 build --strategy=TypeScriptCompile=worker
 build --strategy=AngularTemplateCompile=worker
 
+
+# TODO
 test --test_output=errors

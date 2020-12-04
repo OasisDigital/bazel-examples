@@ -48,8 +48,8 @@ html_insert_assets(
     outs = ["index.html"],
     args = [
         "--html=$(location //client/src:index-template.html)",
-        "--out=$@",
         "--roots=. $(RULEDIR)",
+        "--out=$@",
         "--assets",
         # Python-like list comprehensions work in Starlark:
     ] + ["$(location %s)" % s for s in _ASSETS] + [
@@ -70,5 +70,5 @@ ts_devserver(
     static_files = _ASSETS + [
         ":inject_scripts_for_dev",
     ],
-    deps = ["//client/src"],
+    deps = [":src"],
 )

@@ -65,7 +65,7 @@
     "typescript": "^3.9.0"
   },
   "scripts": {
-    "stress": "ts-node stress-test/stress.ts src/app 60 700",
+    "stress": "ts-node stress-test/stress.ts src/app 6 70",
     "build": "bazel build //src:prodapp",
     "serve": "ibazel run //src:devserver",
     "deploy": "ng build && firebase deploy",

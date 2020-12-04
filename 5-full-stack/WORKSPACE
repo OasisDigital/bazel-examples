@@ -100,6 +100,11 @@ node_repositories(
     node_version = "12.13.0",
 )
 
+# node_repositories(
+#     name = "node13",
+#     node_version = "13.1.0",
+# )
+
 yarn_install(
     name = "npm",
     package_json = "//:package.json",

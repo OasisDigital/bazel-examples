@@ -19,7 +19,7 @@ filegroup(
     srcs = glob(["www/**/*"]),
 )
 
-# bazel run //server
+# bazel run //fx-server
 nodejs_binary(
     name = "fx-server",
     data = [
