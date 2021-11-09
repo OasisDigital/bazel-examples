@@ -3,43 +3,35 @@
 # Oasis Digital, https://oasisdigital.com
 # Kyle Cordes, kyle.cordes@oasisdigital.com
 
-# WARNING - this is a rough initial script to set up a Linux machine for use with Bazel.
-# Barely tested. Don't expect this to do anything useful for you, unless you understand
-# each step.
+# This is a rough script to set up a Linux machine for use with Bazel.
+# Lightly tested. Most people will want something different in some way.
 
-# Moreover, the "right" way to install Bazel for each platform and sitation is evolving
-# in late 2019 as I write this script.
+# The "right" way to install Bazel for each platform and sitation is
+# still evolving in 2021 as I update this script.
 
 set -e
 
-# Bazel does not need Node or Yarn, but I need them to work on various projects.
-
-# Current Yarn APT repo on Debian.
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+# Get npm. I use it, and it provide an easy path to install Bazel and
+# related tools.
 
 # Set up Node APT repo on Debian.
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
-# Most of this isn't necessary either, but is helpful for development needs.
+# Packages helpful for development needs, most not needed for Bazel.
 
 sudo apt update
 sudo apt install -y apt-transport-https
-sudo apt install -y git yarn nodejs openjdk-11-jdk tig htop parallel pkg-config zip g++ zlib1g-dev unzip python3 graphviz
+sudo apt install -y git nodejs openjdk-11-jdk tig htop parallel pkg-config zip g++ zlib1g-dev unzip python3 graphviz
 
-# Consider the Bazel installer, to get Bash completion running easily.
+sudo npm install -g yarn @bazel/bazelisk @bazel/buildifier @bazel/buildozer @bazel/ibazel
+
+# unused-deps is helpful for some Java projects, but doesn't have a
+# convenient installer.
+
+# Consider the Bazel installer instead. It sets up Bash completions.
 # curl -sSL https://github.com/bazelbuild/bazel/releases/download/1.1.0/bazel-1.1.0-installer-linux-x86_64.sh >bazel_install.sh
 # chmod +x bazel_install.sh
 # ./bazel_install.sh --user
 
-# Install Bazel CLI tools "manually". Sadly, as of late 2019 these are not released concurrently
-# with Bazel itself, and have varying versions.
-
-mkdir -p bin
-curl -sSL https://github.com/bazelbuild/buildtools/releases/download/0.29.0/buildifier >bin/buildifier
-curl -sSL https://github.com/bazelbuild/buildtools/releases/download/0.29.0/buildozer >bin/buildozer
-curl -sSL https://github.com/bazelbuild/buildtools/releases/download/0.29.0/unused_deps >bin/unused_deps
-curl -sSL https://github.com/bazelbuild/bazelisk/releases/download/v1.1.0/bazelisk-linux-amd64 >bin/bazelisk
-curl -sSL https://github.com/bazelbuild/bazel-watcher/releases/download/v0.10.2/ibazel_linux_amd64 >bin/ibazel
-cp bin/bazelisk bin/bazel
-chmod +x bin/*
+# TODO:
+# test on digital ocean or AWS

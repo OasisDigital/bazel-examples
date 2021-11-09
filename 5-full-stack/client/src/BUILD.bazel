@@ -1,74 +1,176 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+load("@npm//@babel/cli:index.bzl", "babel")
+load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
+load("@npm//@bazel/terser:index.bzl", "terser_minified")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("@npm//history-server:index.bzl", "history_server")
 load("@npm//html-insert-assets:index.bzl", "html_insert_assets")
-load("@npm//@angular/bazel:index.bzl", "ng_module")
-load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_devserver")
+load("//tools:angular_ts_project.bzl", "ng_ts_project")
 
 package(default_visibility = ["//:__subpackages__"])
 
 ts_config(
-    name = "tsconfig-test",
-    src = "tsconfig-test.json",
-    deps = [":tsconfig.json"],
+    name = "tsconfig",
+    src = "tsconfig.json",
 )
 
-# This is an Angularism: generated ngfactory code will import from places
-# the source code did not.
-NG_FACTORY_ADDED_IMPORTS = [
-    "@npm//@angular/forms",
-]
-
-ng_module(
+ng_ts_project(
     name = "src",
     srcs = [
         "main.dev.ts",
+        "main.prod.ts",
     ],
-    tsconfig = ":tsconfig.json",
-    deps = NG_FACTORY_ADDED_IMPORTS + [
+    deps = [
         "//client/src/app",
         "@npm//@angular/core",
-        "@npm//@angular/common",
+        "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",
     ],
 )
 
-filegroup(
-    name = "rxjs_umd_modules",
-    srcs = [
-        ":rxjs_shims.js",
-        "@npm//:node_modules/rxjs/bundles/rxjs.umd.js",
+# Files that we serve in both development and production
+_ASSETS = [
+    ":style.css",
+    "//client:favicon.ico",
+
+    # We load zone.js outside the bundle. That's because it's a "pollyfill"
+    # which speculates that such features might be available in a browser.
+    # Also it's tricky to configure dead code elimination to understand that
+    # zone.js is used, given that we don't have any import statement that
+    # imports from it.
+    "@npm//:node_modules/zone.js/dist/zone.min.js",
+]
+
+rollup_bundle(
+    name = "bundle-es2015",
+    config_file = "rollup.config.js",
+    entry_points = {
+        ":main.prod.ts": "index.prod",
+        ":main.dev.ts": "index.dev",
+    },
+    output_dir = True,
+    deps = [
+        "//client/src",
+        "@npm//@rollup/plugin-commonjs",
+        "@npm//@rollup/plugin-node-resolve",
     ],
 )
 
-_ASSETS = [
-    "@npm//:node_modules/zone.js/dist/zone.min.js",
-]
+babel(
+    name = "bundle-es5",
+    args = [
+        "$(execpath :bundle-es2015)",
+        "--no-babelrc",
+        "--source-maps",
+        "--presets=@babel/preset-env",
+        "--plugins=@babel/plugin-transform-modules-systemjs",
+        "--out-dir",
+        "$(@D)",
+    ],
+    data = [
+        ":bundle-es2015",
+        "@npm//@babel/preset-env",
+    ],
+    output_dir = True,
+)
 
 html_insert_assets(
     name = "inject_scripts_for_dev",
     outs = ["index.html"],
     args = [
-        "--html=$(location //client/src:index-template.html)",
-        "--roots=. $(RULEDIR)",
+        "--html=$(execpath //client/src:example/index.html)",
         "--out=$@",
+        "--roots=. $(RULEDIR)",
         "--assets",
-        # Python-like list comprehensions work in Starlark:
-    ] + ["$(location %s)" % s for s in _ASSETS] + [
-        # Server by ts_devserver:
-        "_/ts_scripts.js",
+    ] + ["$(execpath %s)" % s for s in _ASSETS] + [
+        "--scripts --module $(execpath :bundle-es2015)/index.dev.js",
     ],
-    data = ["//client/src:index-template.html"] + _ASSETS,
+    data = [
+        "//client/src:example/index.html",
+        ":bundle-es2015",
+    ] + _ASSETS,
 )
 
-ts_devserver(
-    name = "devserver",
-    additional_root_paths = ["src"],
-    entry_module = "full_stack_suite/client/src/main.dev",
-    scripts = [
-        "@npm//:node_modules/tslib/tslib.js",
-        ":rxjs_umd_modules",
-    ],
-    static_files = _ASSETS + [
+pkg_web(
+    name = "devapp",
+    srcs = _ASSETS + [
+        ":bundle-es2015",
         ":inject_scripts_for_dev",
+        # Include polyfills that will be requested by old browsers
+        "@npm//:node_modules/systemjs/dist/system.js",
+        "@npm//:node_modules/core-js/client/core.min.js",
     ],
-    deps = [":src"],
+    # In production mode we serve some polyfills with script tags that have hard-coded paths in the index.html
+    # so we must serve them at that path, by stripping a prefix
+    additional_root_paths = [
+        "npm/node_modules/core-js/client",
+        "npm/node_modules/systemjs/dist",
+    ],
+)
+
+history_server(
+    name = "devserver",
+    data = [":devapp"],
+    templated_args = ["-a $$(rlocation $(rootpath :devapp))"],
+)
+
+terser_minified(
+    name = "bundle-es2015.min",
+    src = ":bundle-es2015",
+)
+
+terser_minified(
+    name = "bundle-es5.min",
+    src = ":bundle-es5",
+)
+
+html_insert_assets(
+    name = "inject_scripts_for_prod",
+    # we can't output "src/example/index.html" since that collides with the devmode file.
+    # pkg_web rule will re-root paths that start with _{name} by default
+    # so we output "_prodapp/src/example/index.html" so that it is mapped to
+    # `example/index.html` in the web package.
+    outs = ["_prodapp/src/index.html"],
+    args = [
+        "--html=$(execpath //client/src:example/index.html)",
+        "--out=$@",
+        "--roots=. $(RULEDIR)",
+        "--assets",
+    ] + ["$(execpath %s)" % s for s in _ASSETS] + [
+        "--scripts --module $(execpath :bundle-es2015.min)/index.prod.js",
+        "--scripts --nomodule $(execpath :bundle-es5.min)/index.prod.js",
+    ],
+    data = [
+        "//client/src:example/index.html",
+        ":bundle-es2015.min",
+        ":bundle-es5.min",
+    ] + _ASSETS,
+)
+
+pkg_web(
+    name = "prodapp",
+    srcs = _ASSETS + [
+        ":bundle-es2015.min",
+        ":bundle-es5.min",
+        # each injected index file should be listed here
+        ":inject_scripts_for_prod",
+        # Service worker
+        "@npm//:node_modules/@angular/service-worker/ngsw-worker.js",
+        # Include polyfills that will be requested by old browsers
+        "@npm//:node_modules/systemjs/dist/system.js",
+        "@npm//:node_modules/core-js/client/core.min.js",
+    ],
+    # In production mode we serve some polyfills with script tags that have hard-coded paths in the index.html
+    # so we must serve them at that path, by stripping a prefix
+    additional_root_paths = [
+        "npm/node_modules/core-js/client",
+        "npm/node_modules/systemjs/dist",
+        "npm/node_modules/@angular/service-worker",
+    ],
+)
+
+history_server(
+    name = "prodserver",
+    data = [":prodapp"],
 )

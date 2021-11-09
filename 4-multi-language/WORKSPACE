@@ -6,8 +6,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "rules_java",
-    sha256 = "220b87d8cfabd22d1c6d8e3cdb4249abd4c93dcc152e0667db061fb1b957ee68",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/0.1.1/rules_java-0.1.1.tar.gz",
+    sha256 = "34b41ec683e67253043ab1a3d1e8b7c61e4e8edefbcad485381328c934d072fe",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/4.0.0/rules_java-4.0.0.tar.gz",
 )
 
 load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
@@ -19,47 +19,44 @@ rules_java_toolchains()
 # Bazel-managed JDK:
 
 http_archive(
-    name = "jdk11_linux",
+    name = "jdk15_linux",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "6c79bfe8bb06c82b72ef2f293a14becef56b3078d298dc75fda4225cbb2d3d0c",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-linux_x64",
+    sha256 = "fff7500fc8ef63e298039087a9b7eb816af2f8bc90e3d7a8eaa950152660eff8",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-linux_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-linux_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-linux_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_macos",
+    name = "jdk15_macos",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "11701b54e62d5cde81a4fa0211776448e38a368c1cfc4ad73bb3bbd628107563",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-macosx_x64",
+    sha256 = "e89e4b1ad499b59bfc74edef0975654a4033cdb9887a646c98cb35f41de72c06",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-macosx_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-macosx_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-macosx_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_windows",
+    name = "jdk15_windows",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "b619df7a6f625095ee4adb3add44839b0b1af2adc09a16c7312ca96bb2b61ec9",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-win_x64",
+    sha256 = "9c607ccd3817dd63d514adf8e66ceedba951a1b7154c62ba3f18e02fe7b8993b",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-win_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-win_x64.zip",
     ],
 )
 
 # Protocol buffers compiler (for GRPC)
 
-# In the future there may be versioned releases:
-# https://github.com/bazelbuild/rules_proto/issues/59
-
 http_archive(
     name = "rules_proto",
-    sha256 = "8e7d59a5b12b233be5652e3d29f42fba01c7cbab09f6b3a8d0a57ed6d1e9a0da",
-    strip_prefix = "rules_proto-7e4afce6fe62dbff0a4a03450143146f9f2d7488",
+    sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
+    strip_prefix = "rules_proto-4.0.0",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/7e4afce6fe62dbff0a4a03450143146f9f2d7488.tar.gz",
-        "https://github.com/bazelbuild/rules_proto/archive/7e4afce6fe62dbff0a4a03450143146f9f2d7488.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
     ],
 )
 
@@ -73,10 +70,10 @@ rules_proto_toolchains()
 
 http_archive(
     name = "io_grpc_grpc_java",
-    sha256 = "6990bf48696f0f5ca2170b28a05893f7875449cb3734d0827d50f5c69f746e33",
-    strip_prefix = "grpc-java-1.33.1",
+    sha256 = "9eb1dd5953973b39c0524808e270118821024a183e8a34c6037239c484efe96c",
+    strip_prefix = "grpc-java-1.40.2",
     urls = [
-        "https://github.com/grpc/grpc-java/archive/v1.33.1.tar.gz",
+        "https://github.com/grpc/grpc-java/archive/refs/tags/v1.40.2.tar.gz",
     ],
 )
 
@@ -85,9 +82,9 @@ load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS", "IO
 # Official Bazel tools to get Maven repo dependencies; there are other
 # unofficial tools also.
 
-RULES_JVM_EXTERNAL_TAG = "3.3"
+RULES_JVM_EXTERNAL_TAG = "4.1"
 
-RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab"
+RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
 
 http_archive(
     name = "rules_jvm_external",
@@ -140,19 +137,10 @@ grpc_java_repositories()
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "207fad3e6689135c5d8713e5a17ba9d1290238f47b9ba545b63d9303406209c6",
+    sha256 = "2b1641428dff9018f9e85c0384f03ec6c10660d935b750e3fa1492a281a53b0f",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.24.7/rules_go-v0.24.7.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.24.7/rules_go-v0.24.7.tar.gz",
-    ],
-)
-
-http_archive(
-    name = "bazel_gazelle",
-    sha256 = "b85f48fa105c4403326e9525ad2b2cc437babaa6e15a3fc0b1dbab0ab064bc7c",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.2/bazel-gazelle-v0.22.2.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.2/bazel-gazelle-v0.22.2.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
     ],
 )
 
@@ -160,15 +148,38 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(
-    go_version = "1.15.5",  # Defaults to latest
+go_register_toolchains(version = "1.17.1")
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "de69a09dc70417580aabf20a28619bb3ef60d038470c7cf8442fafcf627c21cb",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
+    ],
 )
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 gazelle_dependencies()
 
-# Go Dependencies
+# Go GRPC protobuf dependencies
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "d0f5f605d0d656007ce6c8b5a82df3037e1d8fe8b121ed42e536f569dec16113",
+    strip_prefix = "protobuf-3.14.0",
+    urls = [
+        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
+    ],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+# Other Go Dependencies
 
 # tip:
 # bazel run //:gazelle -- update-repos github.com/mattn/go-slim
@@ -176,28 +187,6 @@ gazelle_dependencies()
 go_repository(
     name = "com_github_mattn_go_slim",
     importpath = "github.com/mattn/go-slim",
-    sum = "h1:M3l0/LNEemy7ykM6qCZylkWmFPyvDLDCl7bZPLTfaBQ=",
-    version = "v0.0.0-20200618151855-bde33eecb5ee",
-)
-
-go_repository(
-    name = "org_golang_google_grpc",
-    build_file_proto_mode = "disable",
-    importpath = "google.golang.org/grpc",
-    sum = "h1:EQyQC3sa8M+p6Ulc8yy9SWSS2GVwyRc83gAbG8lrl4o=",
-    version = "v1.33.2",
-)
-
-go_repository(
-    name = "org_golang_x_net",
-    importpath = "golang.org/x/net",
-    sum = "h1:uwuIcX0g4Yl1NC5XAz37xsr2lTtcqevgzYNVt49waME=",
-    version = "v0.0.0-20201110031124-69a78807bb2b",
-)
-
-go_repository(
-    name = "org_golang_x_text",
-    importpath = "golang.org/x/text",
-    sum = "h1:0YWbFKbhXG/wIiuHDSKpS0Iy7FSA+u45VtBMfQcFTTc=",
-    version = "v0.3.4",
+    sum = "h1:uqQiE8NnkaO56o++gpH/TneRCq1YfdPMngZii+xgofw=",
+    version = "v0.0.0-20210920161928-d6681e434570",
 )

@@ -1,12 +1,11 @@
-load("@npm//@angular/bazel:index.bzl", "ng_module")
+load("//tools:angular_ts_project.bzl", "ng_ts_project")
 
 package(default_visibility = ["//:__subpackages__"])
 
-ng_module(
+ng_ts_project(
     name = "app",
-    srcs = glob(["**/*.ts"]),
-    assets = glob(["**/*.html"]),
-    tsconfig = "//client/src:tsconfig.json",
+    srcs = glob(["*.ts"]),
+    angular_assets = glob(["*.html"]),
     deps = [
         "@npm//@angular/common",
         "@npm//@angular/core",

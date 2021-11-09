@@ -1,20 +1,17 @@
 export function appModuleBuildContents(moduleNames: string[]) {
+  const deps = moduleNames.map((name) => '//src/app/' + name);
 
-  const deps = moduleNames
-    .map(name => '//src/app/' + name);
-
-  return `load("//tools:angular_ts_library.bzl", "ng_ts_library")
+  return `load("//tools:angular_ts_project.bzl", "ng_ts_project")
 
 package(default_visibility = ["//:__subpackages__"])
 
-ng_ts_library(
+ng_ts_project(
     name = "app",
     srcs = glob(
         include = ["*.ts"],
         exclude = ["app.server.module.ts"],
     ),
     angular_assets = ["app.component.html"],
-    tsconfig = "//src:tsconfig.json",
     deps = [
         "//src/app/hello-world",
         "//src/app/home",
@@ -31,10 +28,9 @@ ng_ts_library(
     ] + ${JSON.stringify(deps, undefined, 4)},
 )
 
-ng_ts_library(
+ng_ts_project(
     name = "app_server",
     srcs = ["app.server.module.ts"],
-    tsconfig = "//src:tsconfig-server",
     deps = [
         ":app",
         "@npm//@angular/core",

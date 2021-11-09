@@ -104,21 +104,20 @@ java_library(
 
   writeAlias() {
     const build = `load("@rules_java//java:defs.bzl", "java_binary")
-load("@com_github_atlassian_bazel_tools//multirun:def.bzl", "command")
+load("@com_github_ash2k_bazel_tools//multirun:def.bzl", "command")
 
 package(default_visibility = ["//visibility:public"])
 
 java_binary(
-  name = "${this.firstPath}",
-  main_class = "com.oasisdigital.spelling.SpellingServer",
-  runtime_deps = ["//${this.path}:spelling-lib"],
+    name = "${this.firstPath}",
+    main_class = "com.oasisdigital.spelling.SpellingServer",
+    runtime_deps = ["//${this.path}:spelling-lib"],
 )
 
 command(
-  name = "command",
-  command = ":${this.firstPath}",
+    name = "command",
+    command = ":${this.firstPath}",
 )
-
 `;
 
     mkdirp.sync(`${this.firstPath}`);

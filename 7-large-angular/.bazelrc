@@ -1,9 +1,3 @@
-# Configure Bazel Java rules to use a Bazel-managed JDK.
-# (In the future, that may become the default.)
-
-build --javabase=//:jdk
-build --host_javabase=//:jdk
-
 # An even simpler example would not configure any extra caching; but
 # to speed up the CI used for these examples, it’s worth this extra bit
 # of configuration.

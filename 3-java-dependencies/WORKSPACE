@@ -19,41 +19,41 @@ rules_java_toolchains()
 # Bazel-managed JDK:
 
 http_archive(
-    name = "jdk11_linux",
+    name = "jdk15_linux",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "6c79bfe8bb06c82b72ef2f293a14becef56b3078d298dc75fda4225cbb2d3d0c",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-linux_x64",
+    sha256 = "fff7500fc8ef63e298039087a9b7eb816af2f8bc90e3d7a8eaa950152660eff8",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-linux_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-linux_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-linux_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_macos",
+    name = "jdk15_macos",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "11701b54e62d5cde81a4fa0211776448e38a368c1cfc4ad73bb3bbd628107563",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-macosx_x64",
+    sha256 = "e89e4b1ad499b59bfc74edef0975654a4033cdb9887a646c98cb35f41de72c06",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-macosx_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-macosx_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-macosx_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_windows",
+    name = "jdk15_windows",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "b619df7a6f625095ee4adb3add44839b0b1af2adc09a16c7312ca96bb2b61ec9",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-win_x64",
+    sha256 = "9c607ccd3817dd63d514adf8e66ceedba951a1b7154c62ba3f18e02fe7b8993b",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-win_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-win_x64.zip",
     ],
 )
 
 # Official Bazel tools to get Maven repo dependencies; there are other
 # unofficial tools also.
 
-RULES_JVM_EXTERNAL_TAG = "3.3"
+RULES_JVM_EXTERNAL_TAG = "4.1"
 
-RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff026b53544dab"
+RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
 
 http_archive(
     name = "rules_jvm_external",
@@ -66,7 +66,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "junit:junit:4.12",
+        "junit:junit:4.13.2",
     ],
     maven_install_json = "//:maven_install.json",
     repositories = [
@@ -84,7 +84,10 @@ pinned_maven_install(
     # name = "maven",
 )
 
+# Initial pin:
 # bazel run @maven//:pin
+
+# Update or fill in incomplete pins
 # bazel run @unpinned_maven//:pin
 
 # <groupId>com.google.guava</groupId>

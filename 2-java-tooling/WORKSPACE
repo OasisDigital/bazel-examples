@@ -10,8 +10,8 @@ load(
 
 http_archive(
     name = "rules_java",
-    sha256 = "220b87d8cfabd22d1c6d8e3cdb4249abd4c93dcc152e0667db061fb1b957ee68",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/0.1.1/rules_java-0.1.1.tar.gz",
+    sha256 = "34b41ec683e67253043ab1a3d1e8b7c61e4e8edefbcad485381328c934d072fe",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/4.0.0/rules_java-4.0.0.tar.gz",
 )
 
 # Merely loading the rule won't transitively execute code inside them to load
@@ -24,41 +24,45 @@ rules_java_dependencies()
 
 rules_java_toolchains()
 
-# Bazel-managed JDK:
+# Bazel-managed JDK:jdk11_linux
 
-# Download JDKs; as I understand all will be downloaded, then only the one
-# suitable for the platform will be used.
+# As of late 2021, Bazel passes a flag to Java which generates
+# warnings starting at v15, and errors at v17.
+# https://github.com/bazelbuild/bazel/issues/13784
 
 # We are using Azul's builds of OpenJDK:
 # https://www.azul.com/downloads/zulu-community/?architecture=x86-64-bit&package=jdk
 
+# Also, Bazel 5/6 greatly enhances this, adding first-class support for different JDKs.
+# See the param --java_runtime_version
+
 http_archive(
-    name = "jdk11_linux",
+    name = "jdk15_linux",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "6c79bfe8bb06c82b72ef2f293a14becef56b3078d298dc75fda4225cbb2d3d0c",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-linux_x64",
+    sha256 = "fff7500fc8ef63e298039087a9b7eb816af2f8bc90e3d7a8eaa950152660eff8",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-linux_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-linux_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-linux_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_macos",
+    name = "jdk15_macos",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "11701b54e62d5cde81a4fa0211776448e38a368c1cfc4ad73bb3bbd628107563",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-macosx_x64",
+    sha256 = "e89e4b1ad499b59bfc74edef0975654a4033cdb9887a646c98cb35f41de72c06",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-macosx_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-macosx_x64.tar.gz",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-macosx_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk11_windows",
+    name = "jdk15_windows",
     build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "b619df7a6f625095ee4adb3add44839b0b1af2adc09a16c7312ca96bb2b61ec9",
-    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-win_x64",
+    sha256 = "9c607ccd3817dd63d514adf8e66ceedba951a1b7154c62ba3f18e02fe7b8993b",
+    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-win_x64",
     urls = [
-        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip",
+        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-win_x64.zip",
     ],
 )
 
@@ -67,6 +71,6 @@ http_archive(
 
 http_jar(
     name = "guava",
-    sha256 = "56b292df9ec29d102820c1fd7dd581cd749d5c416c7b3aeac008dbda3b984cc2",
-    url = "https://repo1.maven.org/maven2/com/google/guava/guava/30.0-jre/guava-30.0-jre.jar",
+    sha256 = "d5be94d65e87bd219fb3193ad1517baa55a3b88fc91d21cf735826ab5af087b9",
+    url = "https://repo1.maven.org/maven2/com/google/guava/guava/31.0.1-jre/guava-31.0.1-jre.jar",
 )

@@ -7,8 +7,9 @@ bazel build '...' --jobs=2
 
 # --keep-going
 
-# bazel run //:service
-# bazel run //:frontend
+# TODO update with how to run the other services
+# bazel run //people
+# bazel run //frontend
 
 # http://localhost:5432/
 # http://localhost:8005/

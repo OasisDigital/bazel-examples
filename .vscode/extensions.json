@@ -10,6 +10,7 @@
     "formulahendry.auto-rename-tag",
     "msjsdiag.debugger-for-chrome",
     "stkb.rewrap",
+    "ms-vscode.cpptools-extension-pack",
     "ms-vscode.vscode-typescript-tslint-plugin"
   ]
 }

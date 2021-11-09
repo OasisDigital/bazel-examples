@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { PairHistoryChartComponent } from './pair-history-chart/pair-history-chart.component';
-import { PairHistoryViewComponent } from './pair-history-view/pair-history-view.component';
-import { PairHistoryComponent } from './pair-history/pair-history.component';
-import { PairListViewComponent } from './pair-list-view/pair-list-view.component';
-import { PairListComponent } from './pair-list/pair-list.component';
+import { PairHistoryChartComponent } from './pair-history-chart.component';
+import { PairHistoryViewComponent } from './pair-history-view.component';
+import { PairHistoryComponent } from './pair-history.component';
+import { PairListViewComponent } from './pair-list-view.component';
+import { PairListComponent } from './pair-list.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +17,9 @@ import { PairListComponent } from './pair-list/pair-list.component';
     PairHistoryViewComponent,
     PairListComponent,
     PairListViewComponent,
-    PairHistoryChartComponent
+    PairHistoryChartComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, FormsModule, HttpClientModule],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

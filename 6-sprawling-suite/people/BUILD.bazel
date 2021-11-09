@@ -2,8 +2,20 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
     name = "people",
-    srcs = ["server.cc"],
+    srcs = [
+        "people.cc",
+    ],
     visibility = ["//visibility:public"],
+    deps = [
+        ":service",
+        "@com_github_grpc_grpc//:grpc++",
+    ],
+)
+
+cc_library(
+    name = "service",
+    srcs = ["service.cc"],
+    hdrs = ["service.h"],
     deps = [
         "//apidef:api_cc_grpc",
         "@com_github_grpc_grpc//:grpc++",
