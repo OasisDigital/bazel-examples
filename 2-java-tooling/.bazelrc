@@ -1,17 +1,10 @@
 # Configure Bazel Java rules to use a Bazel-managed JDK.
 # (In the future, that may become the default.)
 
-build --javabase=//:jdk
-build --host_javabase=//:jdk
+build --java_runtime_version=remotejdk_15
+build --tool_java_runtime_version=remotejdk_15
 
 # Newer Java, and Newer Bazel 5/6
-
-# Work around https://github.com/bazelbuild/bazel/issues/13784
-# Other ideas in https://github.com/bazelbuild/bazel/issues/3427
-# build --javacopt=-XX:+IgnoreUnrecognizedVMOptions
-# build --jvmopt=-XX:+IgnoreUnrecognizedVMOptions
-# build --host_javacopt=-XX:+IgnoreUnrecognizedVMOptions
-# build --host_jvmopt=-XX:+IgnoreUnrecognizedVMOptions
 
 # An even simpler example would not configure any extra caching; but
 # to speed up the CI used for these examples, it’s worth this extra bit

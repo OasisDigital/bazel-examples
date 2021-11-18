@@ -5,14 +5,6 @@ workspace(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# "New" Java support
-
-http_archive(
-    name = "rules_java",
-    sha256 = "34b41ec683e67253043ab1a3d1e8b7c61e4e8edefbcad485381328c934d072fe",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/4.0.0/rules_java-4.0.0.tar.gz",
-)
-
 # Needed the POM file generator:
 
 # http_archive(
@@ -34,44 +26,6 @@ http_archive(
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
-
-load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
-
-rules_java_dependencies()
-
-rules_java_toolchains()
-
-# Bazel-managed JDK:
-
-http_archive(
-    name = "jdk15_linux",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "fff7500fc8ef63e298039087a9b7eb816af2f8bc90e3d7a8eaa950152660eff8",
-    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-linux_x64",
-    urls = [
-        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-linux_x64.tar.gz",
-    ],
-)
-
-http_archive(
-    name = "jdk15_macos",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "e89e4b1ad499b59bfc74edef0975654a4033cdb9887a646c98cb35f41de72c06",
-    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-macosx_x64",
-    urls = [
-        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-macosx_x64.tar.gz",
-    ],
-)
-
-http_archive(
-    name = "jdk15_windows",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "9c607ccd3817dd63d514adf8e66ceedba951a1b7154c62ba3f18e02fe7b8993b",
-    strip_prefix = "zulu15.36.13-ca-jdk15.0.5-win_x64",
-    urls = [
-        "https://cdn.azul.com/zulu/bin/zulu15.36.13-ca-jdk15.0.5-win_x64.zip",
-    ],
-)
 
 # Protocol buffers compiler (for GRPC)
 
@@ -95,10 +49,10 @@ rules_proto_toolchains()
 
 http_archive(
     name = "io_grpc_grpc_java",
-    sha256 = "9eb1dd5953973b39c0524808e270118821024a183e8a34c6037239c484efe96c",
-    strip_prefix = "grpc-java-1.40.2",
+    sha256 = "33775a1ad05974bbba6ff97801cd9b326485b21fab91b08a4e1bc53e500e6326",
+    strip_prefix = "grpc-java-1.42.1",
     urls = [
-        "https://github.com/grpc/grpc-java/archive/refs/tags/v1.40.2.tar.gz",
+        "https://github.com/grpc/grpc-java/archive/refs/tags/v1.42.1.tar.gz",
     ],
 )
 
@@ -256,10 +210,10 @@ multirun_dependencies()
 
 http_archive(
     name = "com_github_grpc_grpc",
-    sha256 = "12a4a6f8c06b96e38f8576ded76d0b79bce13efd7560ed22134c2f433bc496ad",
-    strip_prefix = "grpc-1.41.1",
+    sha256 = "b2f2620c762427bfeeef96a68c1924319f384e877bc0e084487601e4cc6e434c",
+    strip_prefix = "grpc-1.42.0",
     urls = [
-        "https://github.com/grpc/grpc/archive/refs/tags/v1.41.1.tar.gz",
+        "https://github.com/grpc/grpc/archive/refs/tags/v1.42.0.tar.gz",
     ],
 )
 

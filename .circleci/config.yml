@@ -67,7 +67,7 @@ jobs:
       - run:
           command: |
             mkdir -p /c/Go/bin  # On the PATH but not in use yet
-            curl -sSL https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-windows-x86_64.exe >/c/Go/bin/bazel
+            curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/c/Go/bin/bazel
 
       - run:
           command: |

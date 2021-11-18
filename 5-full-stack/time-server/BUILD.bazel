@@ -1,4 +1,3 @@
-load("@rules_java//java:defs.bzl", "java_binary", "java_library")
 load("@bazel_common//tools/maven:pom_file.bzl", "pom_file")
 
 package(default_visibility = ["//visibility:public"])

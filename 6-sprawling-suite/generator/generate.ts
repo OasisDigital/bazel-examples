@@ -79,9 +79,7 @@ public class SpellingServer
   }
 
   writeBuild() {
-    const build = `load("@rules_java//java:defs.bzl", "java_library")
-
-package(default_visibility = ["//visibility:public"])
+    const build = `package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "spelling-lib",
@@ -103,8 +101,7 @@ java_library(
   }
 
   writeAlias() {
-    const build = `load("@rules_java//java:defs.bzl", "java_binary")
-load("@com_github_ash2k_bazel_tools//multirun:def.bzl", "command")
+    const build = `load("@com_github_ash2k_bazel_tools//multirun:def.bzl", "command")
 
 package(default_visibility = ["//visibility:public"])
 
