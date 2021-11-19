@@ -10,7 +10,4 @@ build --tool_java_runtime_version=remotejdk_15
 # --repository_cache for fetched externals
 # --disk_cache for build artifacts
 
-build --repository_cache=~/.cache/bazel-repo
-fetch --repository_cache=~/.cache/bazel-repo
-query --repository_cache=~/.cache/bazel-repo
-build --disk_cache=~/.cache/bazel-disk
+common --disk_cache=~/.cache/bazel-disk

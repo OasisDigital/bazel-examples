@@ -3,14 +3,4 @@
 build --java_runtime_version=remotejdk_15
 build --tool_java_runtime_version=remotejdk_15
 
-# An even simpler example would not configure any extra caching; but
-# to speed up the CI used for these examples, it’s worth this extra bit
-# of configuration.
-
-# --repository_cache for fetched externals
-# --disk_cache for build artifacts
-
-build --repository_cache=~/.cache/bazel-repo
-fetch --repository_cache=~/.cache/bazel-repo
-query --repository_cache=~/.cache/bazel-repo
-build --disk_cache=~/.cache/bazel-disk
+common --disk_cache=~/.cache/bazel-disk

@@ -1,11 +1,14 @@
-# An even simpler example would not configure any extra caching; but
-# to speed up the CI used for these examples, it’s worth this extra bit
-# of configuration.
+# --repository_cache for fetched externals:
+# "bazel caches all files downloaded in the repository cache which, by
+# default, is located at ~/.cache/bazel/_bazel_$USER/cache/repos/v1/."
+# However, on macOS, it is under /var/tmp instead; use this to check:
+# bazel info repository_cache
 
-# --repository_cache for fetched externals
+# a bug currently prevents this from being used to share the
+# repo cache among users:
+# https://github.com/bazelbuild/bazel/issues/13848
+
 # --disk_cache for build artifacts
+# common means it applies to all Bazel commands.
 
-build --repository_cache=~/.cache/bazel-repo
-fetch --repository_cache=~/.cache/bazel-repo
-query --repository_cache=~/.cache/bazel-repo
-build --disk_cache=~/.cache/bazel-disk
+common --disk_cache=~/.cache/bazel-disk

@@ -21,6 +21,8 @@ jobs:
             apt-get install -y curl g++ zlib1g-dev openjdk-11-jdk patch
             curl -sSL https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 >/usr/local/bin/bazel
             chmod +x /usr/local/bin/bazel
+            echo some projects need git submodule init
+            echo some projects need git submodule update
 
       - run:
           command: |
@@ -40,6 +42,16 @@ jobs:
       - run:
           command: |
             cd 04-multi-language
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 05-cpp
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 06-python
             ./exercise.sh
 
       - run:
@@ -64,10 +76,13 @@ jobs:
       size: large
     steps:
       - checkout
+
       - run:
           command: |
-            mkdir -p /c/Go/bin  # On the PATH but not in use yet
+            mkdir -p /c/Go/bin  # On the PATH but does not exist
             curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/c/Go/bin/bazel
+            echo some projects need git submodule init
+            echo some projects need git submodule update
 
       - run:
           command: |

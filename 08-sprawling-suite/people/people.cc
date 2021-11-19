@@ -4,7 +4,9 @@
 
 #include <grpcpp/grpcpp.h>
 
-#include "service.h"
+// "Make all include paths relative to the workspace directory"
+
+#include "people/service.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;

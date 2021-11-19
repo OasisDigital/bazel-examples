@@ -18,6 +18,9 @@ java_binary(
     runtime_deps = [":hello-lib"],
 )
 
+# "Every directory that contains buildable files should be a package."
+# This is a counter-example:
+
 java_library(
     name = "hello-lib",
     srcs = ["src/main/java/com/example/myproject/Greeter.java"],

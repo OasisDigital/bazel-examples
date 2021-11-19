@@ -2,22 +2,30 @@
   "editor.formatOnSave": true,
   "editor.detectIndentation": false,
   "files.exclude": {
-      "**/.classpath": true,
-      "**/.project": true,
-      "**/.settings": true,
-      "**/.factorypath": true,
-      "**/bazel-*": true
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "**/bazel-*": true
   },
   "java.format.settings.url": ".vscode/java-formatting.xml",
   "java.format.settings.profile": "Narrow",
   "rewrap.wrappingColumn": 70,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": [
-      "Bazel",
-      "Multiset",
-      "Runfiles",
-      "grpc",
-      "mattn"
-  ],
-  "bazel.enableCodeLens": true
+  "cSpell.words": ["Bazel", "Multiset", "Runfiles", "grpc", "mattn"],
+  "bazel.enableCodeLens": true,
+  "files.associations": {
+    "set": "cpp",
+    "__bit_reference": "cpp",
+    "algorithm": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "map": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "memory": "cpp",
+    "iostream": "cpp",
+    "string": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Enabled"
 }

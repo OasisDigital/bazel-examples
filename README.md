@@ -1,5 +1,9 @@
 # Oasis Digital Bazel case studies / examples
 
+## Submodules
+
+We don't use submodules yet, but will eventually to demo this means of bringing in external code.
+
 ## This repository is arranged in a very unusual way
 
 Each of the numbered directories is a separate, small example of a

@@ -1,14 +1,5 @@
-# An even simpler example would not configure any extra caching; but
-# to speed up the CI used for these examples, it’s worth this extra bit
-# of configuration.
 
-# --repository_cache for fetched externals
-# --disk_cache for build artifacts
-
-build --repository_cache=~/.cache/bazel-repo
-fetch --repository_cache=~/.cache/bazel-repo
-query --repository_cache=~/.cache/bazel-repo
-build --disk_cache=~/.cache/bazel-disk
+common --disk_cache=~/.cache/bazel-disk
 
 # Make TypeScript and Angular compilation fast, by keeping a few copies of the
 # compiler running as daemons, and cache SourceFile AST's to reduce parse time.

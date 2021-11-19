@@ -1,5 +1,8 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
+# Binaries are statically linked by default, so this one is tens of
+# megabytes. Consider linkstatic = False where appropriate.
+
 cc_binary(
     name = "people",
     srcs = [
