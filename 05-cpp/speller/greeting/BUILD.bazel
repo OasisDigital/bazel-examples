@@ -1,0 +1,21 @@
+cc_library(
+    name = "greeting",
+    srcs = ["greeting.cc"],
+    hdrs = ["greeting.h"],
+    visibility = ["//speller/announce:__pkg__"],
+)
+
+cc_test(
+    name = "greeting-test",
+    size = "small",
+    srcs = ["greeting-test.cc"],
+    deps = [
+        ":greeting",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+# Sometimes copts it used to set up an include without
+# it becoming part of the build graph. For example, this
+# used to be necessaryL
+# copts = ["-Iexternal/gtest/include"],

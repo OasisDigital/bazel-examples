@@ -1,0 +1,14 @@
+common --disk_cache=~/.cache/bazel-disk
+
+# Bazel doesn't have a native understanding of C++ versions. This was
+# added for Java in 2021; hopefully it might arrive for C++ someday.
+
+build --cxxopt='-std=c++17'
+
+# work around MacOS C++ debugging bug. A more sophisticated approach
+# would use a --config osx on osx and mark this setting build:osx,
+# to avoid applying this setting elsewhere.
+
+build --spawn_strategy=local
+
+test --keep_going

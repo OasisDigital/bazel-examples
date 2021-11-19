@@ -1,0 +1,12 @@
+cc_binary(
+    name = "spell",
+    srcs = ["spell.cc"],
+    deps = [
+        "//speller/announce",
+    ],
+)
+
+alias(
+    name = "main",
+    actual = ":spell",
+)

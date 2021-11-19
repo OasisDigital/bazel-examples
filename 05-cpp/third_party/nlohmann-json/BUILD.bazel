@@ -1,0 +1,7 @@
+cc_library(
+    name = "json",
+    hdrs = [
+        "json.hpp",  # part of the public API, with implementation inside too
+    ],
+    visibility = ["//visibility:public"],
+)

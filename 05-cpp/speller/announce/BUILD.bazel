@@ -1,0 +1,12 @@
+cc_library(
+    name = "announce",
+    srcs = glob(["*.cc"]),  # Beware of glob performance at scale
+    hdrs = glob(["*.h"]),
+    visibility = ["//speller/main:__pkg__"],
+    deps = [
+        "//speller/greeting",
+    ],
+)
+
+# This code writes its output directly, which would require extra
+# setup to intercept for an automated test.

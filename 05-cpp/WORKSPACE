@@ -1,0 +1,69 @@
+workspace(
+    name = "cpp_example",
+)
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# External dependency: GoogleTest ("GTest")
+
+# It ships with a BUILD.bazel already set up, a good example of a
+# medium-complex library build with a single BUILD file:
+# https://github.com/google/googletest/blob/main/BUILD.bazel
+
+# "We recommend building GoogleTest from the latest commit"
+# "We Recommend That You Choose to Live at Head"
+# https://abseil.io/about/philosophy#upgrade-support
+
+GTEST_COMMIT = "3e0e32ba300ce8afe695ad3ba7e81b21b7cf237a"
+
+GTEST_HASH = "84bf0acb4a7ed172ffdd806bb3bef76ad705f4ea63ac7175cd7c86df2a017d17"
+
+http_archive(
+    name = "com_google_googletest",
+    sha256 = GTEST_HASH,
+    strip_prefix = "googletest-%s" % GTEST_COMMIT,
+    urls = ["https://github.com/google/googletest/archive/%s.zip" % GTEST_COMMIT],
+)
+
+# GoogleTest relies on Abseil for some functionality, though basic
+# test execution is OK without it.
+
+ABSEIL_COMMIT = "72c765111173a61de6e4184bb837f855b7869952"
+
+ABSEIL_HASH = "ac91a1f79ae5d6cbf35d5dc6cb2788b68d94599853b9b3454f1108323cccfd45"
+
+http_archive(
+    name = "com_google_absl",
+    sha256 = ABSEIL_HASH,
+    strip_prefix = "abseil-cpp-%s" % ABSEIL_COMMIT,
+    urls = ["https://github.com/abseil/abseil-cpp/archive/%s.zip" % ABSEIL_COMMIT],
+)
+
+# TODO on the above: point  GTEST_OS_STACK_TRACE_GETTER_ GTest to
+# a stack unwinder apparently provided by Abseil. It will eventually be
+# in the box automatically:
+# https://github.com/google/googletest/issues/3485
+
+# External dependency: SQLite
+
+# SQLite does not ship with a BUILD file, so we must supply it.
+
+http_archive(
+    name = "sqlite",
+    build_file = "//:sqlite.BUILD",
+    sha256 = "bd90c3eb96bee996206b83be7065c9ce19aef38c3f4fb53073ada0d0b69bbce3",
+    strip_prefix = "sqlite-autoconf-3360000",
+    urls = [
+        "https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz",
+    ],
+)
+
+# You can also bring in dependencies using your source control system,
+# such as git with submodules. Then write a BUILD.bazel file one level
+# up from the submodule with cc_library. But that's not any different
+# from code in this repo, from Bazel's point of view, so we don't show
+# an example. Helpful example commands, for those interested:
+
+# cd third_party
+# git submodule add --depth 1 https://github.com/Tencent/rapidjson.git
+# git config -f .gitmodules submodule.path/to/submodule.shallow true
