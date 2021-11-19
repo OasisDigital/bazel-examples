@@ -24,37 +24,37 @@ jobs:
 
       - run:
           command: |
-            cd 1-up-and-running
+            cd 01-up-and-running
             ./exercise.sh
 
       - run:
           command: |
-            cd 2-java-tooling
+            cd 02-java-tooling
             ./exercise.sh
 
       - run:
           command: |
-            cd 3-java-dependencies
+            cd 03-java-dependencies
             ./exercise.sh
 
       - run:
           command: |
-            cd 4-multi-language
+            cd 04-multi-language
             ./exercise.sh
 
       - run:
           command: |
-            cd 5-full-stack
+            cd 07-full-stack
             ./exercise.sh
 
       - run:
           command: |
-            cd 6-sprawling-suite
+            cd 08-sprawling-suite
             ./exercise.sh
 
       - run:
           command: |
-            cd 7-large-angular
+            cd 09-large-angular
             ./exercise.sh
 
   bazel_windows:
@@ -71,37 +71,37 @@ jobs:
 
       - run:
           command: |
-            cd 1-up-and-running
+            cd 01-up-and-running
             ./exercise.sh
 
       - run:
           command: |
-            cd 2-java-tooling
+            cd 02-java-tooling
             ./exercise.sh
 
       - run:
           command: |
-            cd 3-java-dependencies
+            cd 03-java-dependencies
             ./exercise.sh
 
       - run:
           command: |
-            cd 4-multi-language
+            cd 04-multi-language
             ./exercise.sh
 
       - run:
           command: |
-            cd 5-full-stack
+            cd 07-full-stack
             echo SKIPPING rules_nodejs windows compat problem ./exercise.sh
 
       - run:
           command: |
-            cd 6-sprawling-suite
+            cd 08-sprawling-suite
             ./exercise.sh
 
       - run:
           command: |
-            cd 7-large-angular
+            cd 09-large-angular
             echo SKIPPING rules_nodejs windows compat problem ./exercise.sh
 
 workflows:

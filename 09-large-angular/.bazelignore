@@ -1,4 +1,4 @@
 node_modules
 dist
 bazel-out
-bazel-7-large-angular
+bazel-09-large-angular
