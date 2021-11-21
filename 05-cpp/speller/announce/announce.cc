@@ -7,11 +7,12 @@
 
 namespace OasisDigital {
 
-void announce(const std::string &who) {
+void announce(const std::string &word) {
   std::time_t result = std::time(nullptr);
-  std::cout << get_greet(who) << std::endl;
-  std::cout << "Speller started at "
-            << std::asctime(std::localtime(&result)) << std::endl;
+  std::cout << std::endl
+            << "Speller executed at "
+            << std::asctime(std::localtime(&result));
+  std::cout << get_greet(word) << std::endl;
 }
 
 }  // namespace OasisDigital

@@ -4,8 +4,8 @@
 
 namespace OasisDigital {
 
-std::string get_greet(const std::string& who) {
-  return "Hello " + who;
+std::string get_greet(const std::string& word) {
+  return "Looking up whether '" + word + "' is a valid word";
 }
 
-}
+}  // namespace OasisDigital

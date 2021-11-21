@@ -5,7 +5,7 @@
 
 namespace OasisDigital {
 
-void announce(const std::string &thing);
+void announce(const std::string &word);
 
 }
 

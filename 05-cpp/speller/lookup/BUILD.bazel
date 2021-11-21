@@ -2,7 +2,11 @@ cc_library(
     name = "lookup",
     srcs = ["lookup.cc"],
     hdrs = ["lookup.h"],
-    visibility = ["//speller/main:__pkg__"],
+    visibility = [
+        "//speller/data_driven_tests:__pkg__",
+        "//speller/main:__pkg__",
+    ],
+    deps = ["@sqlite//:org_sqlite"],
 )
 
 cc_test(
@@ -14,13 +18,3 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
-
-# cc_test(
-#     name = "lookup-datatest",
-#     size = "small",
-#     srcs = ["greeting-test.cc"],
-#     deps = [
-#         ":greeting",
-#         "@com_google_googletest//:gtest_main",
-#     ],
-# )

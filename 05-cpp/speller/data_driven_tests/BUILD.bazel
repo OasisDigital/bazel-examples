@@ -1,0 +1,19 @@
+# Define a test for each of the test case data files
+
+[
+    cc_test(
+        name = testfile.replace("testcases/", "").replace(".json", ""),
+        size = "small",
+        srcs = ["lookup-datatest.cc"],
+        data = [testfile],
+        env = {
+            "TEST_CONFIG_FILE": "$(location :%s)" % testfile,
+        },
+        deps = [
+            "//speller/lookup",
+            "//third_party/nlohmann-json:json",
+            "@com_google_googletest//:gtest_main",
+        ],
+    )
+    for testfile in glob(["testcases/*.json"])
+]

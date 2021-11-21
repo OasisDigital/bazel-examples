@@ -35,13 +35,9 @@ SQLITE_COPTS = [
 
 cc_library(
     name = "org_sqlite",
-    # srcs are the files internal to this package - which can include
-    # private headers and compiled object files, but usually is c/cc.
     srcs = [
         "sqlite3.c",  # The amalgamation file recommended by SQLite
     ],
-    # hdrs are the public interface to this library. If they change,
-    # users of this library have to recompile.
     hdrs = [
         "sqlite3.h",
         "sqlite3ext.h",

@@ -101,7 +101,8 @@
     "variant": "cpp",
     "memory_resource": "cpp",
     "stop_token": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "shared_mutex": "cpp"
   },
   "C_Cpp.errorSquiggles": "Enabled"
 }

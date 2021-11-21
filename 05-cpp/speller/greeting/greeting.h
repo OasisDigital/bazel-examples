@@ -5,7 +5,7 @@
 
 namespace OasisDigital {
 
-std::string get_greet(const std::string &thing);
+std::string get_greet(const std::string &word);
 
 }
 

@@ -12,3 +12,5 @@
 # Ignore outputs generated during Bazel bootstrapping.
 /output/
 temp.png
+
+*.db
