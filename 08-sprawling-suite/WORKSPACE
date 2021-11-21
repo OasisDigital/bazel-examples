@@ -115,6 +115,10 @@ grpc_java_repositories()
 
 # Go rules
 
+# Go, Bazel Go support, and IDE Go support are still evolving. For the
+# moment, I've been using a go.mod/go.sum along with the dependency
+# loading here.
+
 http_archive(
     name = "io_bazel_rules_go",
     sha256 = "2b1641428dff9018f9e85c0384f03ec6c10660d935b750e3fa1492a281a53b0f",
@@ -225,3 +229,54 @@ grpc_deps()
 load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
+
+# Container support
+
+# "These rules do not require / use Docker for pulling, building, or
+# pushing images". No root, less janky. 100% reproducible, to the
+# extent your built code is.
+
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "4349f2b0b45c860dd2ffe18802e9f79183806af93ce5921fb12cbd6c07ab69a8",
+    strip_prefix = "rules_docker-0.21.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.21.0/rules_docker-v0.21.0.tar.gz"],
+)
+
+load(
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
+    container_repositories = "repositories",
+)
+
+container_repositories()
+
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+
+container_deps()
+
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
+)
+
+# Example of selecting a base image:
+
+container_pull(
+    name = "official_ubuntu",
+    registry = "index.docker.io",
+    repository = "library/ubuntu",
+    tag = "14.04",
+)
+
+# By default the lang_image rules use the distroless base runtime
+# images, so you don't need to select and container_pull one.
+
+# "use of these rules on Windows is currently not supported."
+
+load(
+    "@io_bazel_rules_docker//go:image.bzl",
+    _go_image_repos = "repositories",
+)
+
+# _go_image_repos() breaks on Windows, even if you use
+# target_compatible_with on the targets.

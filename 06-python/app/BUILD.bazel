@@ -1,0 +1,17 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+load("@app_deps//:requirements.bzl", "requirement")
+
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    python_version = "PY3",
+    deps = [
+        # package name -> Bazel target name
+        requirement("transitions"),
+    ],
+)
+
+alias(
+    name = "app",
+    actual = ":main",
+)

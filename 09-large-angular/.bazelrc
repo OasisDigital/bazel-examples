@@ -1,5 +1,9 @@
 
-common --disk_cache=~/.cache/bazel-disk
+build --disk_cache=~/.cache/bazel-disk
+fetch --disk_cache=~/.cache/bazel-disk
+query --disk_cache=~/.cache/bazel-disk
+sync --disk_cache=~/.cache/bazel-disk
+test --disk_cache=~/.cache/bazel-disk
 
 # Make TypeScript and Angular compilation fast, by keeping a few copies of the
 # compiler running as daemons, and cache SourceFile AST's to reduce parse time.

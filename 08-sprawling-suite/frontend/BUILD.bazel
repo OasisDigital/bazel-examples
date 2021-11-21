@@ -1,4 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 go_library(
     name = "go_default_library",
@@ -19,3 +22,72 @@ go_binary(
     embed = [":go_default_library"],
     visibility = ["//visibility:public"],
 )
+
+# Container
+
+# On OSX, must be built with
+# --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
+
+# "use of these rules on Windows is currently not supported."
+
+# Commented out because we can't even load the rules on Windows, see
+# WORKSPACE commetns.
+
+# # Create a tar file containing the data file. (Tar files become layers in containers.)
+# pkg_tar(
+#     name = "datafile_tar",
+#     srcs = ["datafile.txt"],
+#     mode = "0o644",
+#     package_dir = "somewhere/here",
+# )
+
+# # Layer it atop the Go base image
+# container_image(
+#     name = "datafile_image",
+#     base = "@go_image_base//image",
+#     target_compatible_with = select({
+#         "@platforms//os:linux": [],
+#         "@platforms//os:macos": [],
+#         "//conditions:default": [":not_compatible"],
+#     }),
+#     tars = [":datafile_tar"],  # Layers to add
+#     user = "nonroot",
+# )
+#
+# go_image(
+#     name = "frontend_image",
+#     srcs = ["frontend.go"],
+#     base = ":datafile_image",
+#     importpath = "grocery/api",
+#     target_compatible_with = select({
+#         "@platforms//os:linux": [],
+#         "@platforms//os:macos": [],
+#         "//conditions:default": [":not_compatible"],
+#     }),
+#     visibility = ["//visibility:private"],
+#     deps = [
+#         "//apidef:api_proto_go",
+#         "@com_github_golang_protobuf//jsonpb:go_default_library_gen",
+#         "@com_github_mattn_go_slim//:go_default_library",
+#         "@org_golang_google_grpc//:go_default_library",
+#         "@org_golang_google_grpc//reflection:go_default_library",
+#     ],
+# )
+
+# # Although not set up for use here, the ruleset can also provide push
+# # functionality, without Docker, root access, etc on CI.
+
+# # bazel run //frontend:image-push
+
+# container_push(
+#     name = "image-push",
+#     format = "Docker",
+#     image = ":frontend_image",
+#     registry = "index.docker.io",  # or your local one
+#     repository = "<username>/cmd-api",
+#     target_compatible_with = select({
+#         "@platforms//os:linux": [],
+#         "@platforms//os:macos": [],
+#         "//conditions:default": [":not_compatible"],
+#     }),
+# )

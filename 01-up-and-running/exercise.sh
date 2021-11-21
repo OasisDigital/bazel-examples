@@ -8,6 +8,10 @@ set -e
 # But... some shells helpful convert ... to ../.. by default (!),
 # so for compatibility always quote your ... Bazel wildcard.
 
+bazel version
+
+bazel fetch '...'
+
 bazel build '...'
 
 # If you are on Windows, you'll need to ask MSYS to not mangle

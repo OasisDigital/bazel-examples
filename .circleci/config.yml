@@ -18,7 +18,8 @@ jobs:
       - run:
           command: |
             apt-get update
-            apt-get install -y curl g++ zlib1g-dev openjdk-11-jdk patch
+            export DEBIAN_FRONTEND=noninteractive
+            apt-get install -q -y curl g++ zlib1g-dev openjdk-11-jdk patch python3 python3-distutils
             curl -sSL https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 >/usr/local/bin/bazel
             chmod +x /usr/local/bin/bazel
             echo some projects need git submodule init
@@ -72,6 +73,8 @@ jobs:
   bazel_windows:
     executor:
       name: win/default
+      # TODO Bazel under Bash on windows has problems - see this doc, and fix it.
+      # https://docs.bazel.build/versions/main/windows.html#running-bazel-msys2-shell-vs-command-prompt-vs-powershell
       shell: bash.exe
       size: large
     steps:

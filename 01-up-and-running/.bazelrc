@@ -11,4 +11,8 @@
 # --disk_cache for build artifacts
 # common means it applies to all Bazel commands.
 
-common --disk_cache=~/.cache/bazel-disk
+build --disk_cache=~/.cache/bazel-disk
+fetch --disk_cache=~/.cache/bazel-disk
+query --disk_cache=~/.cache/bazel-disk
+sync --disk_cache=~/.cache/bazel-disk
+test --disk_cache=~/.cache/bazel-disk
