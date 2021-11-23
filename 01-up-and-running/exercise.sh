@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 # The easiest command: build everything. Bazel uses ... for the
@@ -14,8 +13,9 @@ bazel fetch '...'
 
 bazel build '...'
 
-# If you are on Windows, you'll need to ask MSYS to not mangle
-# Bazel targets, which it confuses for paths.
+# While Bazel no longer recommends running under MSYS, if you do,
+# you'll need to ask MSYS to not mangle Bazel targets, which it
+# confuses for paths.
 
 export MSYS_NO_PATHCONV=1
 export MSYS2_ARG_CONV_EXCL="*"

@@ -69,11 +69,3 @@ class NarcolepticSuperhero(object):
 
     def change_into_super_secret_costume(self):
         print("Beauty, eh?")
-
-
-batman = NarcolepticSuperhero("Batman")
-print(batman.state)
-print(batman.wake_up())
-print(batman.state)
-print(batman.nap())
-print(batman.state)

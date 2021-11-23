@@ -1,7 +1,7 @@
 java_test(
     name = "pass",
     timeout = "short",
-    srcs = ["TestHello.java"],
+    srcs = glob(["*.java"]),
     test_class = "com.example.myproject.TestHello",
     deps = [
         "//app-one/src/main/java/com/example/myproject:hello-lib",

@@ -6,6 +6,7 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true,
+    "**/__pycache__": true,
     "**/bazel-*": true
   },
   "java.format.settings.url": ".vscode/java-formatting.xml",

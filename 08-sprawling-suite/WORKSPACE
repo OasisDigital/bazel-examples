@@ -115,8 +115,8 @@ grpc_java_repositories()
 
 # Go rules
 
-# Go, Bazel Go support, and IDE Go support are still evolving. For the
-# moment, I've been using a go.mod/go.sum along with the dependency
+# Go dependency management, Bazel Go support, and IDE Go support are
+# still evolving. For now, use go.mod/go.sum along with the dependency
 # loading here.
 
 http_archive(
@@ -132,7 +132,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.17.1")
+go_register_toolchains(version = "1.17.2")
 
 http_archive(
     name = "bazel_gazelle",

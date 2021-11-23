@@ -3,4 +3,6 @@ set -e
 
 bazel build '...'
 
-bazel run //app
+./gazelle.sh
+
+bazel run //app:app_bin

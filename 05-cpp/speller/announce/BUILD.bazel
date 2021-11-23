@@ -17,7 +17,7 @@ cc_library(
     # implementation_deps makes dependencies available only for
     # compiling this library, not downstream. This should speed large
     # builds, but experimentally commenters people who have tried it
-    # (I have not done so yet) have not seen have seen modest
+    # (We have not done so yet) have not seen have seen modest
     # improvements. It requires --experimental_cc_implementation_deps.
     # implementation_deps = [],
 )

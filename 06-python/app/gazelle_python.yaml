@@ -1,0 +1,26 @@
+# GENERATED FILE - DO NOT EDIT!
+#
+# To update this file, run:
+#   bazel run //app:gazelle_python_manifest.update
+
+manifest:
+  modules_mapping:
+    six: six
+    transitions: transitions
+    transitions.__init__: transitions
+    transitions.core: transitions
+    transitions.extensions: transitions
+    transitions.extensions.__init__: transitions
+    transitions.extensions.asyncio: transitions
+    transitions.extensions.diagrams: transitions
+    transitions.extensions.diagrams_graphviz: transitions
+    transitions.extensions.diagrams_pygraphviz: transitions
+    transitions.extensions.factory: transitions
+    transitions.extensions.locking: transitions
+    transitions.extensions.markup: transitions
+    transitions.extensions.nesting: transitions
+    transitions.extensions.nesting_legacy: transitions
+    transitions.extensions.states: transitions
+    transitions.version: transitions
+  pip_deps_repository_name: pip
+integrity: 51df44b0dd6ab0109a3fac0b540f1d86d2919faf544f5497f51010944a9b5895

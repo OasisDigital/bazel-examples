@@ -11,3 +11,4 @@
 # Ignore outputs generated during Bazel bootstrapping.
 /output/
 temp.png
+__pycache__

@@ -1,15 +1,20 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
-    name = "go_default_library",
+    name = "groceries_lib",
     srcs = ["server.go"],
     importpath = "github.com/example/project/groceries",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_mattn_go_slim//:go_default_library"],
+    deps = ["@com_github_mattn_go_slim//:go-slim"],
 )
+
+# This important comment is preserved when running Gazelle, as would
+# any extra human-added targets. That is why the BUILD files are
+# usually checked in to source control when though they are generated
+# and updated by Gazelle.
 
 go_binary(
     name = "groceries",
-    embed = [":go_default_library"],
+    embed = [":groceries_lib"],
     visibility = ["//visibility:public"],
 )

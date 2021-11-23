@@ -1,17 +1,46 @@
-load("@rules_python//python:defs.bzl", "py_binary")
-load("@app_deps//:requirements.bzl", "requirement")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@rules_python//gazelle/manifest:defs.bzl", "gazelle_python_manifest")
 
-py_binary(
-    name = "main",
-    srcs = ["main.py"],
-    python_version = "PY3",
-    deps = [
-        # package name -> Bazel target name
-        requirement("transitions"),
-    ],
+# Gazelle python extension needs a manifest file mapping from
+# an import to the installed package that provides it.
+# This macro produces two targets:
+# - //:gazelle_python_manifest.update can be used with `bazel run`
+#   to recalculate the manifest
+# - //:gazelle_python_manifest.test is a test target ensuring that
+#   the manifest doesn't need to be updated
+gazelle_python_manifest(
+    name = "gazelle_python_manifest",
+    # The @modules_map refers to the name we gave in the modules_mapping
+    # rule in the WORKSPACE
+    modules_mapping = "@modules_map//:modules_mapping.json",
+    # This is what we called our `pip_install` rule, where third-party
+    # python libraries are loaded in BUILD files.
+    pip_deps_repository_name = "pip",
+    # This should point to wherever we declare our python dependencies
+    # (the same as what we passed to the modules_mapping rule in WORKSPACE)
+    requirements = ":requirements.txt",
 )
 
-alias(
+py_library(
     name = "app",
-    actual = ":main",
+    srcs = ["__init__.py"],
+    imports = [".."],
+    visibility = ["//:__subpackages__"],
+)
+
+# Python-Gazelle is *very* new, and has problems where it won't accept
+# its own output (!), worked around for the moment like so:
+
+# gazelle:ignore a73bef48-4c78-11ec-8bdc-acde48001122
+
+py_binary(
+    name = "app_bin",
+    srcs = ["__main__.py"],
+    imports = [".."],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":app",
+        "//app/superhero",
+    ],
 )

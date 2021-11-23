@@ -1,0 +1,12 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "superhero",
+    srcs = [
+        "__init__.py",
+        "superhero.py",
+    ],
+    imports = ["../.."],
+    visibility = ["//:__subpackages__"],
+    deps = ["@pip//pypi__transitions"],
+)
