@@ -1,5 +1,3 @@
-load("@bazel_common//tools/maven:pom_file.bzl", "pom_file")
-
 package(default_visibility = ["//visibility:public"])
 
 java_library(
@@ -14,10 +12,11 @@ java_binary(
     runtime_deps = [":time-server-lib"],
 )
 
-pom_file(
-    name = "my_library_pom",
-    targets = [
-        ":time-server",
-    ],
-    template_file = "pom_template.xml",
-)
+# load("@bazel_common//tools/maven:pom_file.bzl", "pom_file")
+# pom_file(
+#     name = "my_library_pom",
+#     targets = [
+#         ":time-server",
+#     ],
+#     template_file = "pom_template.xml",
+# )

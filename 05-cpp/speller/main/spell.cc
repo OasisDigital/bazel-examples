@@ -5,11 +5,10 @@
 // Bazel recommends that your code refer to each header from the
 // workspace root
 
+#include "speller/announce/announce.h"
 #include "speller/lookup/lookup.h"
 
 using namespace std;
-
-#include "speller/announce/announce.h"
 
 int main(int argc, char** argv) {
   std::string word = "";

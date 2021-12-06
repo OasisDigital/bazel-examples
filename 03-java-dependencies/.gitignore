@@ -1,9 +1,15 @@
+*.zip
 *.log
-.idea
-.ijwb
 .DS_Store
 .Trashes
 *.swp
+
+# JetBrains; see: https://raw.githubusercontent.com/github/gitignore/main/Global/JetBrains.gitignore
+
+.ijwb/.blaze
+.ijwb/.idea
+*.iml
+*.ipr
 
 # based on the name of the directory bazel is cloned into.
 /bazel-*

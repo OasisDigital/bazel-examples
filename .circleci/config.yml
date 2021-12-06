@@ -33,11 +33,6 @@ jobs:
 
       - run:
           command: |
-            cd 02-java-tooling
-            ./exercise.sh
-
-      - run:
-          command: |
             cd 03-java-dependencies
             ./exercise.sh
 
@@ -85,17 +80,15 @@ jobs:
           command: |
             mkdir -p /c/Go/bin  # On the PATH but does not exist
             curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/c/Go/bin/bazel
+            # Consider setting PYTHON_BINARY to point to your Python.
+            python -m pip install pip-tools
+            cp /c/tools/miniconda3/python /c/tools/miniconda3/python3
             echo some projects need git submodule init
             echo some projects need git submodule update
 
       - run:
           command: |
             cd 01-up-and-running
-            ./exercise.sh
-
-      - run:
-          command: |
-            cd 02-java-tooling
             ./exercise.sh
 
       - run:
@@ -116,7 +109,11 @@ jobs:
       - run:
           command: |
             cd 06-python
-            ./exercise.sh
+            export MSYS_NO_PATHCONV=1
+            export MSYS2_ARG_CONV_EXCL="*"
+            bazel build '...'
+            # TODO find and fix problem with Python-Gazelle and Windows.
+            bazel run //app:app_bin
 
       - run:
           command: |

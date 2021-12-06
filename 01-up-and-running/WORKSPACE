@@ -18,7 +18,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 go_rules_dependencies()
 
 go_register_toolchains(
-    version = "1.17.2",  # Defaults to latest
+    version = "1.17.4",  # Defaults to latest
 )
 
 # Gazelle is a tool for auto-creating BUILD.bazel files for Go

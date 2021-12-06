@@ -3,10 +3,21 @@
   <head>
     <title>Angular Bazel Example</title>
     <base href="/example" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha256-ZT4HPpdCOt2lvDkXokHuhJfdOKSPFLzeAJik5U/Q+l4="
+      crossorigin="anonymous"
     />
     <meta
       name="description"
@@ -18,13 +29,13 @@
   </head>
   <body>
     <!-- The Angular application will be bootstrapped into this element. -->
-    <app-component></app-component>
+    <app-root></app-root>
 
     <!-- in browsers that don't support ESModules, we polyfill with system.js-->
     <script nomodule src="/core.min.js"></script>
     <script nomodule src="/system.js"></script>
 
-    <!-- TODO: figure out how diff. loading interacts with 
+    <!-- TODO: figure out how diff. loading interacts with
     https://www.npmjs.com/package/rollup-plugin-bundle-html -->
     <script type="module" src="/bundle-es2015.min/index.js"></script>
     <script nomodule="" src="/bundle-es5.min/index.js"></script>

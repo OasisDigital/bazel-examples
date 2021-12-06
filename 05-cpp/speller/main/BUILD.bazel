@@ -1,6 +1,9 @@
 cc_binary(
     name = "spell",
     srcs = ["spell.cc"],
+    # Runtime (data) dependencies:
+    # Only used when running via bazel run, not when running the
+    # binary yourself:
     data = [":dictionary"],
     env = {
         "DICTIONARY_FILE": "$(location :dictionary)",
@@ -29,7 +32,7 @@ genrule(
     # Glue to capture output from the sandbox, when a poorly-written
     # program doesnt have configurable output. Dealing with lack of
     # configurable input is much more irritating.
-    cmd = "./$(location build-dictionary) ; cat spell.db> \"$@\"",
+    cmd = "$(location build-dictionary) ; cp spell.db \"$@\"",
     tools = [":build-dictionary"],
     visibility = ["//visibility:public"],
 )

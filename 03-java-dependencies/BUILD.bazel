@@ -1,0 +1,40 @@
+package(default_visibility = ["//visibility:public"])
+
+java_binary(
+    name = "hello-world",
+    args = ["world"],
+    main_class = "com.oasisdigital.example1.Greeter",
+    runtime_deps = [":hello-lib"],
+)
+
+java_binary(
+    name = "hello-worlds",
+    args = [
+        "world",
+        "world",
+        "world",
+    ],
+    main_class = "com.oasisdigital.example1.Greeter",
+    runtime_deps = [":hello-lib"],
+)
+
+# "Every directory that contains buildable files should be a package."
+# This is a counter-example:
+
+java_library(
+    name = "hello-lib",
+    srcs = ["src/main/java/com/oasisdigital/example1/Greeter.java"],
+    deps = [
+        "@guava//jar",
+    ],
+)
+
+java_test(
+    name = "greeting-output",
+    timeout = "short",
+    srcs = ["src/test/java/com/oasisdigital/example1/TestHello.java"],
+    test_class = "com.oasisdigital.example1.TestHello",
+    deps = [
+        ":hello-lib",
+    ],
+)

@@ -1,4 +1,4 @@
-package com.example.myproject;
+package com.oasisdigital.example1;
 
 import static org.junit.Assert.assertEquals;
 

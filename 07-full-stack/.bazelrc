@@ -1,8 +1,3 @@
-# Configure Bazel Java rules to use a Bazel-managed JDK.
-
-build --java_runtime_version=remotejdk_15
-build --tool_java_runtime_version=remotejdk_15
-
 build --disk_cache=~/.cache/bazel-disk
 fetch --disk_cache=~/.cache/bazel-disk
 query --disk_cache=~/.cache/bazel-disk
@@ -14,7 +9,6 @@ test --disk_cache=~/.cache/bazel-disk
 
 build --strategy=TypeScriptCompile=worker
 build --strategy=AngularTemplateCompile=worker
-
 
 # TODO
 test --test_output=errors

@@ -5,40 +5,6 @@ workspace(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# Official Bazel tools to get Maven repo dependencies; there are other
-# unofficial tools also.
-
-RULES_JVM_EXTERNAL_TAG = "4.1"
-
-RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
-
-http_archive(
-    name = "rules_jvm_external",
-    sha256 = RULES_JVM_EXTERNAL_SHA,
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-)
-
-load("@rules_jvm_external//:defs.bzl", "maven_install")
-
-maven_install(
-    artifacts = [
-        "com.sparkjava:spark-core:2.9.3",
-    ],
-    maven_install_json = "//:maven_install.json",
-    repositories = [
-        "https://jcenter.bintray.com/",
-        "https://repo1.maven.org/maven2",
-    ],
-)
-
-# Pinning is both safer (like an NPM package-lock) and avoids
-# the spurious use of an OS-installed JVM.
-
-load("@maven//:defs.bzl", "pinned_maven_install")
-
-pinned_maven_install()
-
 # Javascript / Typescript tooling
 
 http_archive(

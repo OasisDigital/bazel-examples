@@ -9,9 +9,8 @@ bazel build '...'
 # TODO make these work:
 # bazel test '...' --test_verbose_timeout_warnings --test_output=errors
 
-# bazel run //time-server
 # bazel run //fx-server
-# bazel run //client
-
-# http://localhost:5432/
 # http://localhost:8005/
+
+# bazel run //client
+# http://localhost:8080/

@@ -1,4 +1,4 @@
-package com.example.myproject;
+package com.oasisdigital.example1;
 
 import java.io.PrintStream;
 

@@ -1,6 +1,6 @@
 cc_library(
     name = "announce",
-    # srcs are the files internal to this package - which can include
+    # srcs are the files internal to this library - which can include
     # private headers and compiled object files, but usually is c/cc.
     # Beware of glob performance at scale.
     srcs = glob(["*.cc"]),

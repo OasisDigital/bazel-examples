@@ -1,4 +1,2 @@
 node_modules
 dist
-bazel-out
-bazel-09-large-angular

@@ -21,6 +21,8 @@ gazelle_python_manifest(
     requirements = ":requirements.txt",
 )
 
+# gazelle:ignore a73bef48-4c78-11ec-8bdc-acde48001122
+
 py_library(
     name = "app",
     srcs = ["__init__.py"],
@@ -30,8 +32,6 @@ py_library(
 
 # Python-Gazelle is *very* new, and has problems where it won't accept
 # its own output (!), worked around for the moment like so:
-
-# gazelle:ignore a73bef48-4c78-11ec-8bdc-acde48001122
 
 py_binary(
     name = "app_bin",
