@@ -13,6 +13,9 @@ bazel fetch '...'
 
 bazel build '...'
 
+# On Windows, using cmd.exe, either leave out the quotes or use double quotes"
+# bazel build "..."
+
 # While Bazel no longer recommends running under MSYS, if you do,
 # you'll need to ask MSYS to not mangle Bazel targets, which it
 # confuses for paths.

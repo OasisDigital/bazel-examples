@@ -19,12 +19,10 @@ jobs:
           command: |
             apt-get update
             export DEBIAN_FRONTEND=noninteractive
-            apt-get install -q -y curl g++ zlib1g-dev openjdk-11-jdk patch python3 python3-pip python3-distutils python-is-python3
+            apt-get install -q -y curl g++ zlib1g-dev openjdk-11-jdk patch python3 python3-pip python3-distutils python-is-python3 cc65
             curl -sSL https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 >/usr/local/bin/bazel
             chmod +x /usr/local/bin/bazel
             python3 -m pip install pip-tools
-            echo some projects need git submodule init
-            echo some projects need git submodule update
 
       - run:
           command: |
@@ -64,6 +62,11 @@ jobs:
       - run:
           command: |
             cd 09-large-angular
+            ./exercise.sh
+
+      - run:
+          command: |
+            cd 11-cross
             ./exercise.sh
 
   bazel_windows:
@@ -71,64 +74,68 @@ jobs:
       name: win/default
       # TODO Bazel under Bash on windows has problems - see this doc, and fix it.
       # https://docs.bazel.build/versions/main/windows.html#running-bazel-msys2-shell-vs-command-prompt-vs-powershell
-      shell: bash.exe
+      shell: powershell.exe
       size: large
     steps:
       - checkout
+      - run: systeminfo
 
       - run:
+          shell: cmd.exe
           command: |
-            mkdir -p /c/Go/bin  # On the PATH but does not exist
-            curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/c/Go/bin/bazel
-            # Consider setting PYTHON_BINARY to point to your Python.
-            python -m pip install pip-tools
-            cp /c/tools/miniconda3/python /c/tools/miniconda3/python3
-            echo some projects need git submodule init
-            echo some projects need git submodule update
+            curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
+            # python and pip-tools already present in Circle CI's Windows environment.
 
       - run:
           command: |
             cd 01-up-and-running
-            ./exercise.sh
+            bazel version
+            bazel fetch ...
+            bazel build ...
+            bazel build //groceries:groceries
+            bazel build //groceries
 
       - run:
           command: |
             cd 03-java-dependencies
-            ./exercise.sh
+            bazel build ...
+            bazel test ... --test_verbose_timeout_warnings --test_output=errors
+            bazel run :hello-world
+            bazel run //app-one/src/main/java/com/example/myproject:hello-world
+            bazel run //app-one/src/main/java/com/example/myproject:hello-data
 
       - run:
           command: |
             cd 04-multi-language
-            ./exercise.sh
+            bazel build ...
+            bazel build :service-deploy
 
       - run:
           command: |
             cd 05-cpp
-            echo TODO attempt C++ 17 setup on Windows ./exercise.sh
+            echo TODO attempt C++ 17 setup on Windows bash exercise.sh
 
       - run:
           command: |
             cd 06-python
-            export MSYS_NO_PATHCONV=1
-            export MSYS2_ARG_CONV_EXCL="*"
-            bazel build '...'
-            # TODO find and fix problem with Python-Gazelle and Windows.
-            bazel run //app:app_bin
+            bazel build "..."
+            # TODO find and fix problem with Python-Gazelle and Windows: bazel run //app:app_bin
 
       - run:
           command: |
             cd 07-full-stack
-            echo SKIPPING rules_nodejs windows compat problem ./exercise.sh
+            bazel build ...
 
       - run:
           command: |
             cd 08-sprawling-suite
-            ./exercise.sh
+            bazel fetch ...
+            bazel build ... --jobs=2
 
       - run:
           command: |
             cd 09-large-angular
-            echo SKIPPING rules_nodejs windows compat problem ./exercise.sh
+            echo SKIPPING rules_nodejs windows compat problem, bash exercise.sh
 
 workflows:
   version: 2

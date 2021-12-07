@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Oasis Digital, https://oasisdigital.com
 # Kyle Cordes, kyle.cordes@oasisdigital.com
@@ -6,6 +7,8 @@
 # Minimal way to get Bazel, without any other package managers. Useful for containers etc.
 
 # Assume Linux x86_64.
+
+cd ~
 
 mkdir -p bin
 curl -sSL https://github.com/bazelbuild/bazelisk/releases/download/v1.10.1/bazelisk-linux-amd64 >bin/bazelisk

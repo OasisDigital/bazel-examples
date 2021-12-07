@@ -20,3 +20,6 @@ bazel run //app-one/src/main/java/com/example/myproject:hello-data
 
 # This is extraordinarily helpful in projects that require (correct,
 # i.e. generated) documentation of how things work.
+
+# https://docs.bazel.build/versions/main/query-how-to.html
+# https://docs.bazel.build/versions/main/query.html

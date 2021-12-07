@@ -1,0 +1,10 @@
+build --disk_cache=~/.cache/bazel-disk
+fetch --disk_cache=~/.cache/bazel-disk
+query --disk_cache=~/.cache/bazel-disk
+sync --disk_cache=~/.cache/bazel-disk
+test --disk_cache=~/.cache/bazel-disk
+
+# Use a custom toolchain to compile for a special platform
+
+build --incompatible_enable_cc_toolchain_resolution
+build --platforms //platforms:a2600

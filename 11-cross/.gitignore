@@ -1,0 +1,6 @@
+bazel-*
+cc65-master
+hello
+*.map
+*.o
+*.d

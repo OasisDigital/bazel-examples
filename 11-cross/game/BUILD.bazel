@@ -1,0 +1,8 @@
+cc_binary(
+    name = "hello",
+    srcs = ["hello.c"],
+    target_compatible_with = [
+        "//platforms:mos6502",
+        "//platforms:atari2600",
+    ],
+)

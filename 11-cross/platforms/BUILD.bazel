@@ -1,0 +1,25 @@
+# Our platform does not match any of the predefined CPUs:
+# bazel query @platforms//cpu:all
+
+# But we do match a predefined OS:
+# bazel query @platforms//os:all
+
+package(default_visibility = ["//visibility:public"])
+
+constraint_value(
+    name = "mos6502",
+    constraint_setting = "@platforms//cpu",
+)
+
+constraint_value(
+    name = "atari2600",
+    constraint_setting = "@platforms//os",
+)
+
+platform(
+    name = "a2600",
+    constraint_values = [
+        ":mos6502",
+        ":atari2600",
+    ],
+)

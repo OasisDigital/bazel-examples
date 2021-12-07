@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "files.exclude": {
+    "**/bazel-*": true
+  },
+  "rewrap.wrappingColumn": 70,
+  "cSpell.words": [
+    "Bazel",
+    "grpc",
+    "mattn",
+    "Multiset",
+    "nlohmann",
+    "Runfiles"
+  ],
+  "C_Cpp.clang_format_style": "file",
+  "bazel.enableCodeLens": true,
+  "C_Cpp.errorSquiggles": "Enabled"
+}
