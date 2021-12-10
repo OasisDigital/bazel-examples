@@ -14,6 +14,9 @@ bazel build '...'
 # bazel run :service
 # visit http://localhost:8080
 
+# The :frontend above is an alias, here is the more verbose invocation:
+# bazel run //frontend:groceries
+
 # Or, to run one of the services directly:
 
 # Build the deployable JAR:

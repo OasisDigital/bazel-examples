@@ -4,7 +4,7 @@ orbs:
   win: circleci/windows@2.4.1
 
 jobs:
-  bazel_linux:
+  linux_1_1:
     docker:
       - image: ubuntu:rolling
       # There used to be an up to date image published by Google, see
@@ -69,11 +69,9 @@ jobs:
             cd 11-cross
             ./exercise.sh
 
-  bazel_windows:
+  windows_1_2:
     executor:
       name: win/default
-      # TODO Bazel under Bash on windows has problems - see this doc, and fix it.
-      # https://docs.bazel.build/versions/main/windows.html#running-bazel-msys2-shell-vs-command-prompt-vs-powershell
       shell: powershell.exe
       size: large
     steps:
@@ -113,18 +111,36 @@ jobs:
       - run:
           command: |
             cd 05-cpp
-            echo TODO attempt C++ 17 setup on Windows bash exercise.sh
+            bazel build '...'
+            bazel test //speller/greeting:greeting-test
+            echo TODO make the data file handling work on Windows also
 
       - run:
           command: |
             cd 06-python
-            bazel build "..."
-            # TODO find and fix problem with Python-Gazelle and Windows: bazel run //app:app_bin
+            # TODO find and fix problem with Python-Gazelle and Windows:
+            # bazel build "..."
+            # bazel run //app:app_bin
+
+  windows_2_2:
+    executor:
+      name: win/default
+      shell: powershell.exe
+      size: large
+    steps:
+      - checkout
+      - run: systeminfo
+
+      - run:
+          shell: cmd.exe
+          command: |
+            curl -sSL https://releases.bazel.build/5.0.0/rc2/bazel-5.0.0rc2-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
+            # python and pip-tools already present in Circle CI's Windows environment.
 
       - run:
           command: |
             cd 07-full-stack
-            bazel build ...
+            echo TODO rules_nodejs Windows non-sandbox compatibility problem, bazel build ...
 
       - run:
           command: |
@@ -141,5 +157,6 @@ workflows:
   version: 2
   both_platforms:
     jobs:
-      - bazel_linux
-      - bazel_windows
+      - linux_1_1
+      - windows_1_2
+      - windows_2_2

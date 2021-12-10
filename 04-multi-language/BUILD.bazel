@@ -1,5 +1,10 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
+# You can use an alias() rule to make an easily-seen, easily-typed
+# target name for the most commonly used targets. Ideally a comment
+# like this one would also mention why these targets are the main
+# ones.
+
 alias(
     name = "frontend",
     actual = "//frontend:groceries",

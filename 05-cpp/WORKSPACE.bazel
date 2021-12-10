@@ -14,9 +14,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # "We Recommend That You Choose to Live at Head"
 # https://abseil.io/about/philosophy#upgrade-support
 
-GTEST_COMMIT = "3e0e32ba300ce8afe695ad3ba7e81b21b7cf237a"
+GTEST_COMMIT = "054a986a8513149e8374fc669a5fe40117ca6b41"
 
-GTEST_HASH = "84bf0acb4a7ed172ffdd806bb3bef76ad705f4ea63ac7175cd7c86df2a017d17"
+GTEST_HASH = "52be15bb3af5bc38e7342f1839317ab7dc85e73a0e8998d2b5c975331559c57a"
 
 http_archive(
     name = "com_google_googletest",
@@ -39,9 +39,9 @@ http_archive(
     urls = ["https://github.com/abseil/abseil-cpp/archive/%s.zip" % ABSEIL_COMMIT],
 )
 
-# TODO on the above: point  GTEST_OS_STACK_TRACE_GETTER_ GTest to
-# a stack unwinder apparently provided by Abseil. It will eventually be
-# in the box automatically:
+# TODO on the above: point GTEST_OS_STACK_TRACE_GETTER_ in GTest to a
+# stack unwinder provided by Abseil. It will eventually be in the box
+# automatically:
 # https://github.com/google/googletest/issues/3485
 
 # External dependency: SQLite

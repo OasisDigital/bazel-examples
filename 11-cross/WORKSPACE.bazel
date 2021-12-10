@@ -1,0 +1,11 @@
+workspace(
+    name = "cross_example",
+)
+
+register_toolchains(
+    "//cc65:cc65_linux_toolchain",
+    "//cc65:cc65_osx_toolchain",
+)
+
+# If you have a cc_toolchain_suite(), that is the old toolchain
+# resolution mechanism - not needed here as we use the new mechanism.

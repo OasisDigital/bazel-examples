@@ -15,7 +15,9 @@ cc_test(
     ],
 )
 
-# Sometimes copts it used to set up an include without
-# it becoming part of the build graph. For example, this
-# used to be necessaryL
+# Occasionally, to support external or legacy code we want to add a
+# header directory that is part of the dependency, without globbing or
+# declaring those headers (making them part of our build graph). For
+# example:
+
 # copts = ["-Iexternal/gtest/include"],

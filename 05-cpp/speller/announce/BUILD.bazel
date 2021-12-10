@@ -1,8 +1,8 @@
 cc_library(
     name = "announce",
-    # srcs are the files internal to this library - which can include
-    # private headers and compiled object files, but usually is c/cc.
-    # Beware of glob performance at scale.
+    # srcs are the files internal to this library: .cc, .c,
+    # internal-to-this-library .h, and occasionally externally
+    # compiled .o. Beware of glob performance at scale.
     srcs = glob(["*.cc"]),
     # hdrs are the public interface to this library. If they change,
     # users of this library have to recompile.
