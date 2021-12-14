@@ -27,4 +27,13 @@ bazel build :service-deploy
 
 # There is a way to retrieve that filename programmaticlaly with "bazel aquery", beyond
 # the scope of this introduction. Also, in a real build process we would copy the desired
+
+# See a list of targets:
+# bazel query '...'
+
+# See a diagram of the those tarage (on a Mac with graphviz installed)
+# bazel query --output=graph '...' | dot -Tpng >temp.png ; open temp.png
+
+# This is extraordinarily helpful in projects that require (correct,
+# i.e. generated) documentation of how things work.
 # output artifacts onward.

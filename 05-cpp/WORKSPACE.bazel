@@ -4,6 +4,8 @@ workspace(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# C/C++ support is built in.
+
 # External dependency: GoogleTest ("GTest")
 
 # It ships with a BUILD.bazel already set up, a good example of a

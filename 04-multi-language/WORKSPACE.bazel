@@ -20,7 +20,7 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-# GRPC for Java
+# GRPC and protocol buffers for Java
 
 http_archive(
     name = "io_grpc_grpc_java",
@@ -117,7 +117,7 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 
-# Go GRPC protobuf dependencies
+# Go GRPC and protobuf dependencies
 
 http_archive(
     name = "com_google_protobuf",

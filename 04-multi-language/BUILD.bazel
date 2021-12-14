@@ -1,5 +1,9 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
+# Useful for update-repos, even if we don't use Gazelle otherwise.
+
+gazelle(name = "gazelle")
+
 # You can use an alias() rule to make an easily-seen, easily-typed
 # target name for the most commonly used targets. Ideally a comment
 # like this one would also mention why these targets are the main
@@ -19,7 +23,3 @@ alias(
     name = "service-deploy",
     actual = "//service/src/main/java/com/oasisdigital/grocery:grocery_deploy.jar",
 )
-
-# Useful for update-repos, even if we don't use Gazelle otherwise.
-
-gazelle(name = "gazelle")
