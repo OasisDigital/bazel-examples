@@ -24,10 +24,10 @@ rules_proto_toolchains()
 
 http_archive(
     name = "io_grpc_grpc_java",
-    sha256 = "33775a1ad05974bbba6ff97801cd9b326485b21fab91b08a4e1bc53e500e6326",
-    strip_prefix = "grpc-java-1.42.1",
+    sha256 = "e3781bcab2a410a7cd138f13b2e6a643e111575f6811b154c570f4d020e87507",
+    strip_prefix = "grpc-java-1.44.0",
     urls = [
-        "https://github.com/grpc/grpc-java/archive/refs/tags/v1.42.1.tar.gz",
+        "https://github.com/grpc/grpc-java/archive/refs/tags/v1.44.0.tar.gz",
     ],
 )
 
@@ -36,9 +36,9 @@ load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS", "IO
 # Official Bazel tools to get Maven repo dependencies; there are other
 # unofficial tools also.
 
-RULES_JVM_EXTERNAL_TAG = "4.1"
+RULES_JVM_EXTERNAL_TAG = "4.2"
 
-RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
+RULES_JVM_EXTERNAL_SHA = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca"
 
 http_archive(
     name = "rules_jvm_external",
@@ -91,10 +91,10 @@ grpc_java_repositories()
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "2b1641428dff9018f9e85c0384f03ec6c10660d935b750e3fa1492a281a53b0f",
+    sha256 = "d6b2513456fe2229811da7eb67a444be7785f5323c6708b38d851d2b51e54d83",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
     ],
 )
 
@@ -102,7 +102,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.17.4")
+go_register_toolchains(version = "1.17.6")
 
 http_archive(
     name = "bazel_gazelle",
@@ -117,22 +117,6 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 
-# Go GRPC and protobuf dependencies
-
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "d0f5f605d0d656007ce6c8b5a82df3037e1d8fe8b121ed42e536f569dec16113",
-    strip_prefix = "protobuf-3.14.0",
-    urls = [
-        "https://mirror.bazel.build/github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
-        "https://github.com/protocolbuffers/protobuf/archive/v3.14.0.tar.gz",
-    ],
-)
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
-
 # Other Go Dependencies
 
 # tip:
@@ -141,6 +125,6 @@ protobuf_deps()
 go_repository(
     name = "com_github_mattn_go_slim",
     importpath = "github.com/mattn/go-slim",
-    sum = "h1:uqQiE8NnkaO56o++gpH/TneRCq1YfdPMngZii+xgofw=",
-    version = "v0.0.0-20210920161928-d6681e434570",
+    sum = "h1:uGl3sfBzC84yAbUIqBCMIKLNLQrOnKvYSdRnM02okaY=",
+    version = "v0.0.2",
 )

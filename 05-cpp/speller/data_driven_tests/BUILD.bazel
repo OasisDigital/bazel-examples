@@ -2,6 +2,7 @@
 
 [
     cc_test(
+        # test-001, test-002
         name = testfile.replace("testcases/", "").replace(".json", ""),
         size = "small",
         srcs = ["lookup-datatest.cc"],

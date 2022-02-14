@@ -16,9 +16,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # "We Recommend That You Choose to Live at Head"
 # https://abseil.io/about/philosophy#upgrade-support
 
-GTEST_COMMIT = "054a986a8513149e8374fc669a5fe40117ca6b41"
+GTEST_COMMIT = "28e1da21d8d677bc98f12ccc7fc159ff19e8e817"
 
-GTEST_HASH = "52be15bb3af5bc38e7342f1839317ab7dc85e73a0e8998d2b5c975331559c57a"
+GTEST_HASH = "eb70a6d4520f940956a6b3e37d205d92736bb104c6a1b2b9f82bfc41bd7a2b34"
 
 http_archive(
     name = "com_google_googletest",
@@ -27,22 +27,9 @@ http_archive(
     urls = ["https://github.com/google/googletest/archive/%s.zip" % GTEST_COMMIT],
 )
 
-# GoogleTest relies on Abseil for some functionality, though basic
-# test execution is OK without it.
-
-ABSEIL_COMMIT = "72c765111173a61de6e4184bb837f855b7869952"
-
-ABSEIL_HASH = "ac91a1f79ae5d6cbf35d5dc6cb2788b68d94599853b9b3454f1108323cccfd45"
-
-http_archive(
-    name = "com_google_absl",
-    sha256 = ABSEIL_HASH,
-    strip_prefix = "abseil-cpp-%s" % ABSEIL_COMMIT,
-    urls = ["https://github.com/abseil/abseil-cpp/archive/%s.zip" % ABSEIL_COMMIT],
-)
-
-# TODO on the above: point GTEST_OS_STACK_TRACE_GETTER_ in GTest to a
-# stack unwinder provided by Abseil. It will eventually be in the box
+# It is apparently possible, though we haven't found the right
+# invocation, to use GTEST_OS_STACK_TRACE_GETTER_ with a stack
+# unwinder provided by Abseil. It will eventually be in the box
 # automatically:
 # https://github.com/google/googletest/issues/3485
 
@@ -50,9 +37,12 @@ http_archive(
 
 # SQLite does not ship with a BUILD file, so we must supply it.
 
+# Tip: Look at other simpler part of this workspace first, before the
+# custom inserted BUILD file.
+
 http_archive(
     name = "sqlite",
-    build_file = "//:sqlite.BUILD",
+    build_file = "//third_party:sqlite.BUILD",  # BUILD
     sha256 = "bd90c3eb96bee996206b83be7065c9ce19aef38c3f4fb53073ada0d0b69bbce3",
     strip_prefix = "sqlite-autoconf-3360000",
     urls = [

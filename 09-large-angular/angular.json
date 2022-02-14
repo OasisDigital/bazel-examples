@@ -15,14 +15,14 @@
       },
       "architect": {
         "build": {
-          "builder": "@bazel/angular:build",
+          "builder": "@angular-builders/bazel:build",
           "options": {
             "targetLabel": "//src:prodapp",
             "bazelCommand": "build"
           }
         },
         "serve": {
-          "builder": "@bazel/angular:build",
+          "builder": "@angular-builders/bazel:build",
           "options": {
             "targetLabel": "//src:devserver",
             "bazelCommand": "run",
@@ -41,7 +41,7 @@
           }
         },
         "test": {
-          "builder": "@bazel/angular:build",
+          "builder": "@angular-builders/bazel:build",
           "options": {
             "bazelCommand": "test",
             "targetLabel": "//src/app/..."
@@ -54,9 +54,7 @@
               "src/tsconfig.app.json",
               "src/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -67,7 +65,7 @@
       "prefix": "",
       "architect": {
         "e2e": {
-          "builder": "@bazel/angular:build",
+          "builder": "@angular-builders/bazel:build",
           "options": {
             "bazelCommand": "test",
             "targetLabel": "//e2e:devserver_test"
@@ -82,14 +80,11 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     }
   },
   "defaultProject": "ngbazel"
-  
 }

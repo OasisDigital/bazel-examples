@@ -4,7 +4,7 @@
 
 We don't use submodules yet, but will eventually to demo this means of bringing in external code.
 
-## This repository is arranged in a very unusual way
+## This repository is arranged in an unusual way
 
 Each of the numbered directories is a separate, small example of a
 complete Bazel workspace. That's why many things are duplicated

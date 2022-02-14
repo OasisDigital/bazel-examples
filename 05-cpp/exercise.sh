@@ -19,6 +19,8 @@ bazel test --test_output=errors '...'
 # Keep an eye on test execution speed
 bazel test '...' --test_verbose_timeout_warnings
 
+# --cache_test_results=no
+
 # Execute the output
 
 # This works, but leaves the data file in the sandbox

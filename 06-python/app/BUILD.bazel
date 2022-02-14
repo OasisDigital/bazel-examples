@@ -1,7 +1,18 @@
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("@rules_python//gazelle/manifest:defs.bzl", "gazelle_python_manifest")
+load("@rules_python//gazelle/modules_mapping:def.bzl", "modules_mapping")
+load("@pip//:requirements.bzl", "all_whl_requirements")
 
-# Gazelle python extension needs a manifest file mapping from
+# Gazelle Python extension metadata for Python packages we
+# depend on. That data is required for the gazelle_python_manifest
+# rule to update our manifest file.
+# To see what this rule does, try `bazel run @modules_map//:print`
+modules_mapping(
+    name = "modules_map",
+    wheels = all_whl_requirements,
+)
+
+# Gazelle Python extension needs a manifest file mapping from
 # an import to the installed package that provides it.
 # This macro produces two targets:
 # - //:gazelle_python_manifest.update can be used with `bazel run`
@@ -10,9 +21,7 @@ load("@rules_python//gazelle/manifest:defs.bzl", "gazelle_python_manifest")
 #   the manifest doesn't need to be updated
 gazelle_python_manifest(
     name = "gazelle_python_manifest",
-    # The @modules_map refers to the name we gave in the modules_mapping
-    # rule in the WORKSPACE
-    modules_mapping = "@modules_map//:modules_mapping.json",
+    modules_mapping = ":modules_map",  # above
     # This is what we called our `pip_install` rule, where third-party
     # python libraries are loaded in BUILD files.
     pip_deps_repository_name = "pip",
@@ -21,8 +30,6 @@ gazelle_python_manifest(
     requirements = ":requirements.txt",
 )
 
-# gazelle:ignore a73bef48-4c78-11ec-8bdc-acde48001122
-
 py_library(
     name = "app",
     srcs = ["__init__.py"],
@@ -30,8 +37,7 @@ py_library(
     visibility = ["//:__subpackages__"],
 )
 
-# Python-Gazelle is *very* new, and has problems where it won't accept
-# its own output (!), worked around for the moment like so:
+# gazelle:ignore 4600c9e2-8139-11ec-b195-acde48001122
 
 py_binary(
     name = "app_bin",

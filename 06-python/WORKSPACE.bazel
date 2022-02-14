@@ -12,20 +12,19 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "69de5c704a05ff37862f7e0f5534d4f479418afc21806c887db544a316f3cb6b",
+    sha256 = "d6b2513456fe2229811da7eb67a444be7785f5323c6708b38d851d2b51e54d83",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
     ],
 )
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "0bb8056ab9ed4cbcab5b74348d8530c0e0b939987b0cfe36c1ab53d35a99e4de",
-    strip_prefix = "bazel-gazelle-2834ea44b3ec6371c924baaf28704730ec9d4559",
+    sha256 = "de69a09dc70417580aabf20a28619bb3ef60d038470c7cf8442fafcf627c21cb",
     urls = [
-        # No release since March, and we need subsequent fixes
-        "https://github.com/bazelbuild/bazel-gazelle/archive/2834ea44b3ec6371c924baaf28704730ec9d4559.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.24.0/bazel-gazelle-v0.24.0.tar.gz",
     ],
 )
 
@@ -34,7 +33,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.17.4")
+go_register_toolchains(version = "1.17.6")
 
 gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 
@@ -42,15 +41,11 @@ gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 
 # Python support
 
-# We're using the very latest, not-yet-released rules_python as of
-# late November 2021, because it has a freshly-added Gazelle plugin.
-# This new capability potentially makes adoption far more appealing.
-
 http_archive(
     name = "rules_python",
-    sha256 = "56b373d6d63d01977fb7bb341170fc354ae923c532ae8744b15db0cfda4bf5a7",
-    strip_prefix = "rules_python-a5a7ffbf4bd9a5bd611942e94d9c9787bf0cbcdd",
-    url = "https://github.com/bazelbuild/rules_python/archive/a5a7ffbf4bd9a5bd611942e94d9c9787bf0cbcdd.zip",
+    sha256 = "a30abdfc7126d497a7698c29c46ea9901c6392d6ed315171a6df5ce433aa4502",
+    strip_prefix = "rules_python-0.6.0",
+    url = "https://github.com/bazelbuild/rules_python/archive/0.6.0.tar.gz",
 )
 
 load("@rules_python//python:pip.bzl", "pip_install")
@@ -88,14 +83,3 @@ pip_install(
 load("@rules_python//gazelle:deps.bzl", _py_gazelle_deps = "gazelle_deps")
 
 _py_gazelle_deps()
-
-load("@rules_python//gazelle/modules_mapping:def.bzl", "modules_mapping")
-
-# This repository rule fetches the metadata for python packages we
-# depend on. That data is required for the gazelle_python_manifest
-# rule to update our manifest file.
-# To see what this rule does, try `bazel run @modules_map//:print`
-modules_mapping(
-    name = "modules_map",
-    requirements = "//app:requirements_lock.txt",
-)

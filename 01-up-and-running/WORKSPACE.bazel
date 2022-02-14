@@ -6,10 +6,10 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "2b1641428dff9018f9e85c0384f03ec6c10660d935b750e3fa1492a281a53b0f",
+    sha256 = "d6b2513456fe2229811da7eb67a444be7785f5323c6708b38d851d2b51e54d83",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.29.0/rules_go-v0.29.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
     ],
 )
 
@@ -21,7 +21,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 go_rules_dependencies()
 
 go_register_toolchains(
-    version = "1.17.4",  # Defaults to latest
+    version = "1.17.6",  # Defaults to latest
 )
 
 # Gazelle is a tool for auto-creating BUILD.bazel files for Go
@@ -58,8 +58,8 @@ gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 go_repository(
     name = "com_github_mattn_go_slim",
     importpath = "github.com/mattn/go-slim",
-    sum = "h1:uqQiE8NnkaO56o++gpH/TneRCq1YfdPMngZii+xgofw=",
-    version = "v0.0.0-20210920161928-d6681e434570",
+    sum = "h1:uGl3sfBzC84yAbUIqBCMIKLNLQrOnKvYSdRnM02okaY=",
+    version = "v0.0.2",
 )
 
 # From the rules_go documentation:
@@ -70,3 +70,6 @@ go_repository(
 # in generated files."
 
 # Thus: go get github.com/mattn/go-slim
+
+# However, suitable IDE/tooling integration can instead make the
+# Bazel-loaded dependencies available for IDE use.

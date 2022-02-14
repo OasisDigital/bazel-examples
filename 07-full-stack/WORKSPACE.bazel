@@ -1,7 +1,13 @@
 workspace(
     name = "full_stack_suite",
-    managed_directories = {"@npm": ["node_modules"]},
 )
+
+# Docs:
+# "As of rules_nodejs 5.0, symlink_node_modules defaults to False and
+# using managed_directories is not recommended"
+
+# Issue:
+# https://github.com/bazelbuild/rules_nodejs/issues/2708
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
@@ -9,26 +15,40 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "f7037c8e295fdc921f714962aee7c496110052511e2b14076bd8e2d46bc9819c",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.4.5/rules_nodejs-4.4.5.tar.gz"],
+    sha256 = "a09edc4ba3931a856a5ac6836f248c302d55055d35d36e390a0549799c33145b",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.0.2/rules_nodejs-5.0.2.tar.gz"],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
+load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
 
-node_repositories(
-    # name = "nodejs",  # Most repository rules require a name, a few don't.
-    node_version = "16.13.0",
+build_bazel_rules_nodejs_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",  # You can load another version under another name
+    node_version = "16.13.2",
 )
 
-# node_repositories(
-#     name = "nodejs13",
-#     node_version = "13.1.0",
-# )
+# It is also possible to set up the various things
+# nodejs_register_toolchains separately, which lets you do things like
+# set a Yarn version.
+
+# build_bazel_rules_nodejs comes with bazel_skylib
+
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
+bazel_skylib_workspace()
+
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
 yarn_install(
     name = "npm",
+    # This is required to allow rules to reach inside packages and
+    # depend on arbitrary files. It is needed for ts_library,
+    # ng_module, and many other cases.
+    exports_directories_only = False,
     package_json = "//:package.json",
-    symlink_node_modules = True,  # use the managed_directories
     yarn_lock = "//:yarn.lock",
 )
 
@@ -36,26 +56,12 @@ yarn_install(
 
 load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
-esbuild_repositories()
+esbuild_repositories(npm_repository = "npm")
 
 # Needed the POM file generator:
 
 http_archive(
     name = "bazel_common",
-    sha256 = "d8c9586b24ce4a5513d972668f94b62eb7d705b92405d4bc102131f294751f1d",
-    strip_prefix = "bazel-common-413b433b91f26dbe39cdbc20f742ad6555dd1e27",
-    url = "https://github.com/google/bazel-common/archive/413b433b91f26dbe39cdbc20f742ad6555dd1e27.zip",
+    strip_prefix = "bazel-common-bf8e5ef95b118d1716b0cb4982cf15b6ed1c896f",
+    url = "https://github.com/google/bazel-common/archive/bf8e5ef95b118d1716b0cb4982cf15b6ed1c896f.zip",
 )
-
-http_archive(
-    name = "bazel_skylib",
-    sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
-    urls = [
-        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-    ],
-)
-
-load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
-
-bazel_skylib_workspace()
