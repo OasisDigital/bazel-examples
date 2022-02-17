@@ -11,6 +11,7 @@ export MSYS2_ARG_CONV_EXCL="*"
 # Anytime the dependencies change:
 
 (cd app; pip-compile --generate-hashes --output-file=requirements_lock.txt requirements.txt)
+
 bazel run '//app:gazelle_python_manifest.update'
 
 # Anytime the files changes. Consider a pre-commit hook.

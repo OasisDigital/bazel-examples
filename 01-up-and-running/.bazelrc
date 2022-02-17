@@ -1,4 +1,5 @@
 # --repository_cache for fetched externals:
+
 # "bazel caches all files downloaded in the repository cache which, by
 # default, is located at ~/.cache/bazel/_bazel_$USER/cache/repos/v1/."
 # However, on macOS, it is under /var/tmp instead; use this to check:
@@ -8,8 +9,25 @@
 # repo cache among users:
 # https://github.com/bazelbuild/bazel/issues/13848
 
-# --disk_cache for build artifacts
-# common means it applies to all Bazel commands.
+# ----------------------------------------
+
+# --disk_cache for build artifacts:
+
+# The setting here shares the artifact cache among all workspaces with
+# the same setting.
+
+# There isn't a "bazel info disk_cache", probably because the default
+# is per-workspace.
+
+# There is an open issue to automatically manage the cache size.
+# https://github.com/bazelbuild/bazel/issues/5139
+
+# Some people use a "find blah blah blah -delete" cronjob to trim the
+# cache, but this triggers hard-to-diagnose errors. See:
+# https://github.com/bazelbuild/bazel/issues/12630
+
+# Instead, "bazel clean" in a weekly or monthly cron if you don't want
+# to notice and clean manually.
 
 build --disk_cache=~/.cache/bazel-disk
 fetch --disk_cache=~/.cache/bazel-disk

@@ -2,6 +2,7 @@ package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "time-server-lib",
+    # Non-recommended use of a glob
     srcs = glob(["src/main/java/**/*.java"]),
     deps = ["@maven//:com_sparkjava_spark_core"],
 )

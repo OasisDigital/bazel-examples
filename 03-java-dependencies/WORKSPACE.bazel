@@ -2,6 +2,8 @@ workspace(name = "java_dependencies")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_jar")
 
+# Nothing here to load Java support, it is built in.
+
 # Retrieve a dependency JAR in the simplest available way. We'll see
 # more complex mechanisms later.
 
@@ -39,7 +41,9 @@ maven_install(
     ],
 )
 
-# Pinning is both safer (like an NPM package-lock) and avoids
+# behind the scenes, this uses https://get-coursier.io/docs/other-credentials
+
+# Pinning is both safer (like an NPM package-lock.json) and avoids
 # the spurious use of an OS-installed JVM.
 
 load("@maven//:defs.bzl", "pinned_maven_install")

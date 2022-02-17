@@ -2,6 +2,8 @@ workspace(name = "up_and_running")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# import { http_archive } from "@bazel_tools//tools/build_defs/repo:http.bzl";
+
 # Go rules
 
 http_archive(
@@ -17,6 +19,8 @@ http_archive(
 # https://docs.bazel.build/versions/main/bzlmod.html
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
+# import { go_register_toolchains, go_rules_dependencies } from "@io_bazel_rules_go//go:deps.bzl";
 
 go_rules_dependencies()
 

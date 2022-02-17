@@ -6,6 +6,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # ----------------- Gazelle support -------------------
 
+# https://github.com/bazelbuild/rules_python/blob/main/gazelle/README.md
+
 # Depend on Go because Gazelle is written in Go and we compile
 # from source in this example. Possibly in the future rules_python
 # could include precompiled Gazelle binaries?

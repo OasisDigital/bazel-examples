@@ -52,6 +52,12 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 # List of 32 dependencies for GRPC support:
 # print(IO_GRPC_GRPC_JAVA_ARTIFACTS)
 
+# ["com.google.api.grpc:proto-google-common-protos:2.0.1",
+# "com.google.auth:google-auth-library-credentials:0.22.0",
+# "com.google.auth:google-auth-library-oauth2-http:0.22.0",
+# ...
+# ]
+
 maven_install(
     artifacts = [
         "junit:junit:4.12",
@@ -125,6 +131,6 @@ gazelle_dependencies(go_repository_default_config = "@//:WORKSPACE.bazel")
 go_repository(
     name = "com_github_mattn_go_slim",
     importpath = "github.com/mattn/go-slim",
-    sum = "h1:uGl3sfBzC84yAbUIqBCMIKLNLQrOnKvYSdRnM02okaY=",
-    version = "v0.0.2",
+    sum = "h1:FZ/1leXcHnDpGdy7Iu8pdna+hsR75TYHaL1slgVGZDE=",
+    version = "v0.0.3",
 )

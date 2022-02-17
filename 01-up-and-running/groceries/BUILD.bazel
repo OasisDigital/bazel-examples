@@ -5,7 +5,7 @@ go_library(
     srcs = ["server.go"],
     importpath = "github.com/example/project/groceries",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_mattn_go_slim//:go-slim"],
+    deps = ["@com_github_mattn_go_slim//:go-slim"],  # Thanks, Gazelle
 )
 
 # This important comment is preserved when running Gazelle, as would

@@ -6,6 +6,7 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("@io_grpc_grpc_java//:java_grpc_library.bzl", "java_grpc_library")
+load("@rules_java//java:defs.bzl", "java_proto_library")
 
 def acme_grpc(name, srcs, go_import_path, visibility = ["//visibility:public"]):
     proto_library(
@@ -22,6 +23,8 @@ def acme_grpc(name, srcs, go_import_path, visibility = ["//visibility:public"]):
         visibility = visibility,
     )
 
+    # This one is automatically imported to BUILD files for backward
+    # compatibility, but must be imported intentionally here.
     java_proto_library(
         name = "%s_java" % name,
         deps = [":%s" % name],

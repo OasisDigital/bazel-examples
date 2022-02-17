@@ -355,6 +355,7 @@ def _impl(ctx):
     ]
 
     return [
+        # Tip: search "create_cc_toolchain_config_info" in the Bazel source.
         cc_common.create_cc_toolchain_config_info(
             ctx = ctx,
             features = features,
