@@ -81,7 +81,7 @@ jobs:
       - run:
           shell: cmd.exe
           command: |
-            curl -sSL https://github.com/bazelbuild/bazel/releases/download/5.0.0/bazel-5.0.0-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
+            curl -sSL https://releases.bazel.build/5.1.0/rc3/bazel-5.1.0rc3-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
             # python and pip-tools already present in Circle CI's Windows environment.
 
       - run:
@@ -134,7 +134,7 @@ jobs:
       - run:
           shell: cmd.exe
           command: |
-            curl -sSL https://github.com/bazelbuild/bazel/releases/download/5.0.0/bazel-5.0.0-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
+            curl -sSL https://releases.bazel.build/5.1.0/rc3/bazel-5.1.0rc3-windows-x86_64.exe >/ProgramData/nvm/bazel.exe
             # python and pip-tools already present in Circle CI's Windows environment.
 
       - run:
